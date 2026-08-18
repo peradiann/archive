@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peradian — Documentary Archive & Sources</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #0b0b0c; --panel: #131315; --panel-line: #232326;
+    --bone: #d9d9d6; --bone-dim: #9a9a97; --ash: #6b6b6d;
+    --brass: #8c7a54; --brass-bright: #b39c6b; --red: #b33a3a;
+  }
+  body { margin: 0; background: var(--void); color: var(--bone); font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: .05; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  header.nav { position: sticky; top: 0; z-index: 100; background: rgba(11,11,12,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--panel-line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; max-width: 1200px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; color: var(--bone); }
+  .yt-btn { border: 1px solid var(--panel-line); padding: 9px 18px; border-radius: 2px; font-size: 13px; text-decoration: none; color: var(--bone); text-transform: uppercase; transition: 0.2s; }
+  .yt-btn:hover { border-color: var(--brass); color: var(--brass-bright); }
+  .hero { padding: 100px 32px 60px; text-align: center; border-bottom: 1px solid var(--panel-line); }
+  .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(40px, 6vw, 70px); margin: 0 0 20px; }
+  .hero em { color: var(--brass-bright); font-style: italic; }
+  .filter-bar { position: sticky; top: 72px; z-index: 90; background: var(--void); padding: 15px 32px; border-bottom: 1px solid var(--panel-line); display: flex; justify-content: center; gap: 10px; }
+  .filter-btn { background: none; border: 1px solid var(--panel-line); color: var(--bone-dim); padding: 8px 16px; cursor: pointer; }
+  .filter-btn.active { background: var(--brass); color: var(--void); border-color: var(--brass); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; padding: 60px 32px; max-width: 1200px; margin: 0 auto; }
+  .card { background: var(--panel); border: 1px solid var(--panel-line); border-radius: 4px; overflow: hidden; transition: 0.3s; position: relative; }
+  .card:hover { transform: translateY(-5px); border-color: var(--brass); }
+  .thumb { aspect-ratio: 16/9; background: #222; position: relative; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .case-no { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); padding: 4px 8px; font-family: 'IBM Plex Mono'; font-size: 11px; color: var(--brass-bright); border: 1px solid var(--brass); }
+  .card-body { padding: 20px; }
+  .card-title { font-family: 'Fraunces', serif; font-size: 18px; margin: 0 0 10px; }
+  .btn-dl { display: block; text-align: center; background: none; border: 1px solid var(--brass); color: var(--brass-bright); text-decoration: none; padding: 10px; margin-top: 15px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .btn-dl:hover { background: var(--brass); color: var(--void); }
+  footer { padding: 40px; text-align: center; color: var(--ash); font-size: 13px; border-top: 1px solid var(--panel-line); }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">Peradian</a>
+    <a href="https://youtube.com/@peradiann" class="yt-btn">YouTube</a>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Every story, <em>cross-examined.</em></h1>
+  <p style="color: var(--bone-dim); max-width: 600px; margin: 0 auto;">History is a puzzle. Browse our case files and download the research documents behind every documentary.</p>
+</section>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filter('all')">All Files</button>
+  <button class="filter-btn" onclick="filter('sourced')">Sourced</button>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<footer>
+  © 2026 Peradian Documentary Archive.
+</footer>
+
+<script>
+// YAHAN APNE VIDEOS ADD KAREIN
+const VIDEOS = [
+  {
+    case: "001",
+    title: "Inside Kim Jong Un's North Korea: The Regime of Fear",
+    ytId: "dQw4w9WgXcQ",
+    sourced: true,
+    pdf: "sources/case-001.pdf"
+  },
+  {
+    case: "002",
+    title: "The Mystery of the Lost Empire",
+    ytId: "jNQXAC9IVRw",
+    sourced: false,
+    pdf: "#"
+  }
+];
+
+function render(filterType = 'all') {
+  const container = document.getElementById('grid');
+  container.innerHTML = VIDEOS.filter(v => filterType === 'all' || (filterType === 'sourced' && v.sourced))
+    .map(v => `
+      <div class="card">
+        <div class="thumb">
+          <img src="https://img.youtube.com/vi/${v.ytId}/mqdefault.jpg">
+          <span class="case-no">CASE ${v.case}</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">${v.title}</h3>
+          <a href="${v.pdf}" class="btn-dl" ${v.sourced ? '' : 'style="opacity:0.3; pointer-events:none;"'}>
+            ${v.sourced ? 'Download Sources (PDF)' : 'Sourcing in Progress'}
+          </a>
+        </div>
+      </div>
+    `).join('');
+}
+
+function filter(type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  render(type);
+}
+
+render();
+</script>
+</body>
+</html>
