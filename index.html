@@ -27,7 +27,7 @@
 <footer class="footer">© 2026 Peradian Resources · <a href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">Peradian on YouTube</a></footer>
 <script>
 const CHANNEL_URL='https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj';
-const VIDEOS=[{case:'001',title:'The Most Dangerous Dictator Kim Jong Un',youtubeUrl:CHANNEL_URL,sourced:true,pdf:'sources/case-001-sources.pdf'}];
+const VIDEOS=[{case:'001',title:'The Most Dangerous Dictator Kim Jong Un',youtubeUrl:CHANNEL_URL,sourced:true,pdf:'case-001-sources.pdf'}];
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function render(type='all'){const list=VIDEOS.filter(v=>type==='all'||v.sourced);document.getElementById('count').textContent=`${list.length} research file${list.length===1?'':'s'}`;document.getElementById('grid').innerHTML=list.map(v=>{const thumb=`<div class="placeholder"><span>DOCUMENTARY THUMBNAIL · VIDEO NOT YET PUBLISHED</span></div>`;const watch=`<a class="btn" href="${v.youtubeUrl}" target="_blank" rel="noopener">Visit YouTube Channel</a>`;return `<article class="card"><div class="thumb">${thumb}<span class="case">CASE ${v.case}</span></div><div class="body"><h3 class="title">${esc(v.title)}</h3><div class="meta">Research file · Peradian Resources</div><div class="actions">${watch}<a class="btn" href="${v.pdf}" target="_blank" rel="noopener">Research PDF</a></div></div></article>`}).join('')}
 function filterFiles(type,btn){document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');render(type)}render();
