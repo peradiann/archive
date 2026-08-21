@@ -14,23 +14,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject AI script into index
+      - name: Inject Peradian AI and branding scripts
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
-          tag = '<script src="peradian-ai.js"></script>'
-          if tag not in s:
-              marker = '</body>'
-              if marker not in s:
-                  raise SystemExit('Could not find </body> in index.html')
-              s = s.replace(marker, tag + marker, 1)
-              p.write_text(s, encoding='utf-8')
+          for tag in ['<script src="peradian-ai.js"></script>', '<script src="peradian-branding.js"></script>']:
+              if tag not in s:
+                  marker = '</body>'
+                  if marker not in s:
+                      raise SystemExit('Could not find </body> in index.html')
+                  s = s.replace(marker, tag + marker, 1)
+          p.write_text(s, encoding='utf-8')
           PY
 
-      - name: Commit injected AI
+      - name: Commit injected scripts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -39,5 +39,5 @@ jobs:
             echo "No injection needed"
             exit 0
           fi
-          git commit -m "Add Peradian AI to website"
+          git commit -m "Add Peradian branding and favicon"
           git push
