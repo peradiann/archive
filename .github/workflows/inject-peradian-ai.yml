@@ -14,23 +14,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject Peradian AI and branding scripts
+      - name: Inject Peradian AI and branding
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
+          head = '''<link rel="icon" type="image/png" href="peradian-logo.png"><link rel="shortcut icon" type="image/png" href="peradian-logo.png"><link rel="apple-touch-icon" href="peradian-logo.png"><meta name="theme-color" content="#050304"><meta property="og:title" content="Peradian Resources — Documentary Research Archive"><meta property="og:description" content="Explore the research, sources and stories behind Peradian documentaries."><meta property="og:image" content="https://peradiann.github.io/archive/peradian-logo.png"><meta property="og:type" content="website"><meta property="og:url" content="https://peradiann.github.io/archive/">'''
+          if 'href="peradian-logo.png"' not in s:
+              s = s.replace('</head>', head + '</head>', 1)
           for tag in ['<script src="peradian-ai.js"></script>', '<script src="peradian-branding.js"></script>']:
               if tag not in s:
-                  marker = '</body>'
-                  if marker not in s:
-                      raise SystemExit('Could not find </body> in index.html')
-                  s = s.replace(marker, tag + marker, 1)
+                  s = s.replace('</body>', tag + '</body>', 1)
+          s = s.replace('rrdobhal081-blip.github.io/archive', 'peradiann.github.io/archive')
           p.write_text(s, encoding='utf-8')
           PY
 
-      - name: Commit injected scripts
+      - name: Commit injected branding
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -39,5 +40,5 @@ jobs:
             echo "No injection needed"
             exit 0
           fi
-          git commit -m "Add Peradian branding and favicon"
+          git commit -m "Fix Peradian favicon and link branding"
           git push
