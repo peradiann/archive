@@ -1,0 +1,40 @@
+name: Fix Peradian AI knowledge
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-ai:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply knowledge override
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('peradian-ai.js')
+          s = p.read_text(encoding='utf-8')
+          marker = '/* PERADIAN_KNOWLEDGE_OVERRIDE_V2 */'
+          if marker in s:
+              print('Knowledge override already present')
+              raise SystemExit(0)
+          code = r'''/* PERADIAN_KNOWLEDGE_OVERRIDE_V2 */
+(()=>{const f=document.getElementById('paForm'),q=document.getElementById('paInput'),msgs=document.getElementById('paMsgs');if(!f||!q||!msgs)return;const PDF='https://peradiann.github.io/archive/case-001-sources.pdf',MAIL='workperadian@gmail.com';const esc=x=>x.replace(/[&<>]/g,z=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[z]));const language=x=>{if(/\b(aahe|ahe|kay|kaay|kadhi|kuthe|kon|majha|tumhi|mala|sanga|kasa|kashi|karaycha|baddal|suruvat|zala|zali)\b/i.test(x))return'mr';if(/[\u0900-\u097F]/.test(x))return'hi';return'en'};const add=t=>{const e=document.createElement('div');e.className='pa-msg bot';e.innerHTML=t;msgs.appendChild(e);msgs.scrollTop=msgs.scrollHeight};const answers={en:{yt:'<b>YouTube</b> was founded on <b>February 14, 2005</b>, by co-founders <b>Chad Hurley, Steve Chen, and Jawed Karim</b>. In <b>October 2006</b>, Google acquired YouTube for <b>$1.65 billion</b> in stock.',pyt:'The <b>Peradian YouTube channel</b> was created on <b>July 2, 2026</b>. Peradian is a documentary and research platform focused on history, mystery, science, war, culture, and critical thinking for a global audience.',founder:'<b>Pradeep Rajput</b> is the Founder and Documentary Creator behind <b>Peradian</b>. Peradian is his documentary and research platform focused on uncovering stories that shaped our world.',resource:'The current Peradian Research Archive resource is <b>Case 001 — The Most Dangerous Dictator Kim Jong Un</b>: <a href="'+PDF+'" target="_blank" rel="noopener">Open / download the Research PDF</a>.',email:'For Peradian enquiries, email <b>'+MAIL+'</b>. You can contact this address for <b>sponsorships, business enquiries, website problems, technical issues, collaborations, media/work opportunities, or working with the Peradian team</b>.',email2:'Suggested subjects: <b>“Sponsorship Enquiry — Peradian”</b>, <b>“Website Problem”</b>, or <b>“Work With Peradian”</b>. Briefly explain your request and add links or screenshots when useful.'},hi:{yt:'<b>YouTube</b> की स्थापना <b>14 फ़रवरी 2005</b> को co-founders <b>Chad Hurley, Steve Chen और Jawed Karim</b> ने की थी। <b>October 2006</b> में Google ने YouTube को <b>$1.65 billion</b> में acquire किया था।',pyt:'<b>Peradian YouTube channel</b> की शुरुआत <b>2 July 2026</b> को हुई थी। Peradian documentary और research platform है, जिसका focus history, mystery, science, war, culture और critical thinking पर है।',founder:'<b>Pradeep Rajput</b> Peradian के <b>Founder और Documentary Creator</b> हैं। Peradian उनका documentary और research platform है, जिसका उद्देश्य दुनिया को shape करने वाली कहानियों को research-driven तरीके से सामने लाना है।',resource:'Peradian Research Archive में वर्तमान resource <b>Case 001 — The Most Dangerous Dictator Kim Jong Un</b> का है: <a href="'+PDF+'" target="_blank" rel="noopener">Research PDF खोलें / डाउनलोड करें</a>।',email:'Peradian enquiry के लिए <b>'+MAIL+'</b> पर email करें। इस email पर <b>sponsorship, business enquiry, website problem, technical issue, collaboration, media/work opportunity या Peradian team के साथ काम</b> के बारे में message भेज सकते हैं।',email2:'Subject के उदाहरण: <b>“Sponsorship Enquiry — Peradian”</b>, <b>“Website Problem”</b> या <b>“Work With Peradian”</b>। फिर अपनी बात clear और short तरीके से लिखें और जरूरत हो तो link/screenshot जोड़ें।'},mr:{yt:'<b>YouTube</b> ची स्थापना <b>14 फेब्रुवारी 2005</b> रोजी co-founders <b>Chad Hurley, Steve Chen आणि Jawed Karim</b> यांनी केली. <b>October 2006</b> मध्ये Google ने YouTube ला <b>$1.65 billion</b> मध्ये acquire केले.',pyt:'<b>Peradian YouTube channel</b> ची सुरुवात <b>2 July 2026</b> रोजी झाली. Peradian हे documentary आणि research platform आहे; त्याचा focus history, mystery, science, war, culture आणि critical thinking यावर आहे.',founder:'<b>Pradeep Rajput</b> हे <b>Peradian चे Founder आणि Documentary Creator</b> आहेत. Peradian हे त्यांचे documentary आणि research platform आहे, ज्याचा उद्देश जगाला shape करणाऱ्या कथा research-driven पद्धतीने मांडणे हा आहे.',resource:'Peradian Research Archive मधील सध्याचा resource <b>Case 001 — The Most Dangerous Dictator Kim Jong Un</b> आहे: <a href="'+PDF+'" target="_blank" rel="noopener">Research PDF उघडा / डाउनलोड करा</a>.',email:'Peradian enquiry साठी <b>'+MAIL+'</b> वर email करू शकता. या email वर <b>sponsorship, business enquiry, website problem, technical issue, collaboration, media/work opportunity किंवा Peradian team सोबत काम</b> याबद्दल message पाठवू शकता.',email2:'Subject उदाहरणे: <b>“Sponsorship Enquiry — Peradian”</b>, <b>“Website Problem”</b> किंवा <b>“Work With Peradian”</b>. त्यानंतर तुमची request स्पष्टपणे लिहा आणि गरज असल्यास link/screenshot जोडा.'}};const answer=x=>{const l=language(x),a=answers[l],z=x.toLowerCase();if(/peradian.*(youtube|channel)|(youtube|channel).*peradian/.test(z)&&/(when|founded|started|created|bana|bani|kab|launch|start|kadhi|suruvat|zala|zali)/.test(z))return a.pyt;if(/\b(youtube|you tube)\b/.test(z)&&/(when|founded|started|created|bana|bani|kab|establish|acquire|google|kadhi|suruvat)/.test(z))return a.yt;if(/pradeep.*rajput|rajput.*pradeep|founder/.test(z))return a.founder;if(/resource|resources|source|sources|pdf|reference|research.*file|link/.test(z))return a.resource;if(/email|contact|enquir|enquiry|sponsor|sponsorship|business|work with|team/.test(z))return a.email+'<br><br>'+a.email2;if(/peradian/.test(z))return l==='hi'?'<b>Peradian</b> एक documentary और research platform है जो history, mystery, science, war, culture और critical thinking पर research-driven storytelling करता है।':l==='mr'?'<b>Peradian</b> हे documentary आणि research platform आहे, जे history, mystery, science, war, culture आणि critical thinking वर research-driven storytelling करते.':'<b>Peradian</b> is a documentary and research platform focused on research-driven storytelling across history, mystery, science, war, culture, and critical thinking.';return l==='hi'?'मैं Peradian से जुड़े topics और defined factual keywords पर detailed answer दे सकता हूँ। Peradian, founder, YouTube channel, documentaries, research archive, resources या enquiry के बारे में पूछें।':l==='mr'?'मी Peradian शी संबंधित topics आणि defined factual keywords वर detailed answer देऊ शकतो. Peradian, founder, YouTube channel, documentaries, research archive, resources किंवा enquiry बद्दल विचारा.':'I can give detailed answers about Peradian and its defined factual keywords. Ask about Peradian, its founder, YouTube channel, documentaries, research archive, resources, or enquiries.'};f.onsubmit=e=>{e.preventDefault();const x=q.value.trim();if(!x)return;const u=document.createElement('div');u.className='pa-msg user';u.innerHTML=esc(x);msgs.appendChild(u);q.value='';msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>add(answer(x)),350)}})();
+'''
+          p.write_text(s + '\n' + code, encoding='utf-8')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add peradian-ai.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Improve Peradian AI keyword answers"
+          git push
