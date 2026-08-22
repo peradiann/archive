@@ -80,7 +80,12 @@
     btn.type='button';
     btn.setAttribute('aria-label','Suggest a Video Topic');
     btn.setAttribute('data-topic-suggestion','true');
-    btn.innerHTML='✦ Topic Suggestion';
+    btn.innerHTML=`<span style="display:inline-grid;place-items:center;width:16px;height:16px;margin-right:7px;color:#ff7448;font-size:16px;line-height:1">✦</span><span>Topic Suggestion</span>`;
+    btn.style.cursor='pointer';
+    btn.style.position='relative';
+    btn.style.zIndex='10';
+    btn.style.whiteSpace='nowrap';
+    btn.style.touchAction='manipulation';
     btn.addEventListener('click',()=>{
       const modal=document.getElementById('suggestModal');
       if(modal){
@@ -90,12 +95,15 @@
       }
     });
 
+    // Put it directly after the two primary hero actions.
     heroActions.appendChild(btn);
   }
 
-  // Run now and once again after the page has fully initialized so the action
-  // cannot disappear because another script finishes rendering afterward.
+  // Run now and again after initialization so the action cannot disappear
+  // because another script finishes rendering afterward.
   ensureTopicSuggestion();
   window.addEventListener('DOMContentLoaded',ensureTopicSuggestion,{once:true});
+  window.addEventListener('load',ensureTopicSuggestion,{once:true});
   setTimeout(ensureTopicSuggestion,250);
+  setTimeout(ensureTopicSuggestion,1000);
 })();
