@@ -68,4 +68,24 @@
   if(researchCount)researchCount.textContent='002';
   const factCount=document.querySelector('.fact strong');
   if(factCount)factCount.textContent='02';
+
+  // Restore the Topic Suggestion action beside the archive/watch actions.
+  const heroActions=document.querySelector('.hero .actions');
+  if(heroActions && !document.getElementById('topicSuggestionHero')){
+    const btn=document.createElement('button');
+    btn.id='topicSuggestionHero';
+    btn.className='button';
+    btn.type='button';
+    btn.setAttribute('aria-label','Suggest a Video Topic');
+    btn.innerHTML='<span style="margin-right:7px;color:#ff7448">✦</span>Topic Suggestion';
+    btn.addEventListener('click',()=>{
+      const modal=document.getElementById('suggestModal');
+      if(modal){
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        setTimeout(()=>document.getElementById('topicInput')?.focus(),250);
+      }
+    });
+    heroActions.appendChild(btn);
+  }
 })();
