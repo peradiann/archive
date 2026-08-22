@@ -69,15 +69,18 @@
   const factCount=document.querySelector('.fact strong');
   if(factCount)factCount.textContent='02';
 
-  // Restore the Topic Suggestion action beside the archive/watch actions.
-  const heroActions=document.querySelector('.hero .actions');
-  if(heroActions && !document.getElementById('topicSuggestionHero')){
+  // Restore the premium Topic Suggestion action beside Explore Archive and Watch Peradian.
+  function ensureTopicSuggestion(){
+    const heroActions=document.querySelector('.hero .actions');
+    if(!heroActions || document.getElementById('topicSuggestionHero')) return;
+
     const btn=document.createElement('button');
     btn.id='topicSuggestionHero';
     btn.className='button';
     btn.type='button';
     btn.setAttribute('aria-label','Suggest a Video Topic');
-    btn.innerHTML='<span style="margin-right:7px;color:#ff7448">✦</span>Topic Suggestion';
+    btn.setAttribute('data-topic-suggestion','true');
+    btn.innerHTML='✦ Topic Suggestion';
     btn.addEventListener('click',()=>{
       const modal=document.getElementById('suggestModal');
       if(modal){
@@ -86,6 +89,13 @@
         setTimeout(()=>document.getElementById('topicInput')?.focus(),250);
       }
     });
+
     heroActions.appendChild(btn);
   }
+
+  // Run now and once again after the page has fully initialized so the action
+  // cannot disappear because another script finishes rendering afterward.
+  ensureTopicSuggestion();
+  window.addEventListener('DOMContentLoaded',ensureTopicSuggestion,{once:true});
+  setTimeout(ensureTopicSuggestion,250);
 })();
