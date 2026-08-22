@@ -29,4 +29,43 @@
       a.href='https://peradiann.github.io/archive/';
     }
   });
+
+  // Restore Case 002 without replacing the stable archive layout.
+  const wrap=document.querySelector('#documentaries .wrap');
+  const firstCase=wrap?.querySelector('.case');
+  if(wrap && firstCase && !document.getElementById('case-002')){
+    const article=document.createElement('article');
+    article.className='case';
+    article.id='case-002';
+    article.dataset.search='002 the mystery of japanese folklore japanese folklore culture mystery history case 002';
+    article.innerHTML=`<div class="num">002</div><div><h3>The Mystery of Japanese Folklore</h3><div class="meta">Research archive · Sources available · Case 002</div><a class="smallbtn" href="case-002the-mystery-of-japanese-folklore(1)pdf.pdf" target="_blank" rel="noopener">View Research PDF ↗</a><a class="smallbtn" href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">Peradian YouTube ↗</a></div><div class="thumb"><img src="japanese-folklore.jpg" alt="The Mystery of Japanese Folklore"></div>`;
+    firstCase.after(article);
+  }
+
+  // Keep search/filter behavior working for both documentary cases.
+  const searchBox=document.getElementById('searchBox');
+  const empty=document.getElementById('empty');
+  const runArchiveSearch=()=>{
+    if(!searchBox||!wrap)return;
+    const q=searchBox.value.trim().toLowerCase();
+    const active=document.querySelector('.cat.active')?.dataset.filter || 'all';
+    const cards=[...wrap.querySelectorAll('.case')];
+    let visible=0;
+    cards.forEach(card=>{
+      const text=(card.dataset.search||'').toLowerCase();
+      const ok=(active==='all'||text.includes(active))&&(!q||text.includes(q));
+      card.style.display=ok?'grid':'none';
+      if(ok)visible++;
+    });
+    if(empty)empty.style.display=visible?'none':'block';
+  };
+  searchBox?.addEventListener('input',runArchiveSearch);
+  document.querySelectorAll('.cat').forEach(cat=>cat.addEventListener('click',()=>setTimeout(runArchiveSearch,0)));
+  runArchiveSearch();
+
+  // Update archive counters now that Case 002 is live.
+  const researchCount=document.querySelector('.dashcard strong');
+  if(researchCount)researchCount.textContent='002';
+  const factCount=document.querySelector('.fact strong');
+  if(factCount)factCount.textContent='02';
 })();
