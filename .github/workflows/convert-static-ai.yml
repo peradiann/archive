@@ -1,0 +1,36 @@
+name: Convert Peradian AI to Static HTML
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'peradian-ai.js'
+      - 'scripts/convert-static-ai.py'
+      - '.github/workflows/convert-static-ai.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  staticify:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build static initial HTML
+        run: python3 scripts/convert-static-ai.py
+
+      - name: Commit generated HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No static HTML changes needed."
+            exit 0
+          fi
+          git commit -m "chore: make Peradian AI static in initial HTML [skip ci]"
+          git push
