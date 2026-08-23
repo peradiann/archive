@@ -39,11 +39,9 @@
     article.id='case-002';
     article.dataset.search='002 the mystery of japanese folklore japanese folklore culture mystery history case 002';
     article.innerHTML=`<div class="num">002</div><div><h3>The Mystery of Japanese Folklore</h3><div class="meta">Research archive · Sources available · Case 002</div><a class="smallbtn" href="case-002the-mystery-of-japanese-folklore(1)pdf.pdf" target="_blank" rel="noopener">View Research PDF ↗</a><a class="smallbtn" href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">Peradian YouTube ↗</a></div><div class="thumb"><img src="japanese-folklore.jpg" alt="The Mystery of Japanese Folklore"></div>`;
-    // Newest documentary first: place Case 002 before the existing Case 001.
     firstCase.before(article);
   }
 
-  // Keep search/filter behavior working for both documentary cases.
   const searchBox=document.getElementById('searchBox');
   const empty=document.getElementById('empty');
   const runArchiveSearch=()=>{
@@ -64,17 +62,14 @@
   document.querySelectorAll('.cat').forEach(cat=>cat.addEventListener('click',()=>setTimeout(runArchiveSearch,0)));
   runArchiveSearch();
 
-  // Update archive counters now that Case 002 is live.
   const researchCount=document.querySelector('.dashcard strong');
   if(researchCount)researchCount.textContent='002';
   const factCount=document.querySelector('.fact strong');
   if(factCount)factCount.textContent='02';
 
-  // Restore the premium Topic Suggestion action beside Explore Archive and Watch Peradian.
   function ensureTopicSuggestion(){
     const heroActions=document.querySelector('.hero .actions');
     if(!heroActions || document.getElementById('topicSuggestionHero')) return;
-
     const btn=document.createElement('button');
     btn.id='topicSuggestionHero';
     btn.className='button';
@@ -89,22 +84,26 @@
     btn.style.touchAction='manipulation';
     btn.addEventListener('click',()=>{
       const modal=document.getElementById('suggestModal');
-      if(modal){
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden','false');
-        setTimeout(()=>document.getElementById('topicInput')?.focus(),250);
-      }
+      if(modal){modal.classList.add('open');modal.setAttribute('aria-hidden','false');setTimeout(()=>document.getElementById('topicInput')?.focus(),250)}
     });
-
-    // Put it directly after the two primary hero actions.
     heroActions.appendChild(btn);
   }
-
-  // Run now and again after initialization so the action cannot disappear
-  // because another script finishes rendering afterward.
   ensureTopicSuggestion();
   window.addEventListener('DOMContentLoaded',ensureTopicSuggestion,{once:true});
   window.addEventListener('load',ensureTopicSuggestion,{once:true});
   setTimeout(ensureTopicSuggestion,250);
   setTimeout(ensureTopicSuggestion,1000);
+
+  // Fix founder photo: GitHub /blob/ URLs are HTML pages, not image files.
+  function fixFounderPhoto(){
+    const img=document.querySelector('.founder-photo');
+    if(!img) return;
+    img.src='pradip.jpg';
+    img.removeAttribute('srcset');
+    img.loading='eager';
+    img.decoding='async';
+  }
+  fixFounderPhoto();
+  window.addEventListener('DOMContentLoaded',fixFounderPhoto,{once:true});
+  window.addEventListener('load',fixFounderPhoto,{once:true});
 })();
