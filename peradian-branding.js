@@ -94,16 +94,50 @@
   setTimeout(ensureTopicSuggestion,250);
   setTimeout(ensureTopicSuggestion,1000);
 
-  // Fix founder photo: GitHub /blob/ URLs are HTML pages, not image files.
+  // Founder image: always use the GitHub Pages asset, never the GitHub /blob/ HTML page.
   function fixFounderPhoto(){
     const img=document.querySelector('.founder-photo');
     if(!img) return;
-    img.src='pradip.jpg';
+    const asset=new URL('pradip.jpg',document.baseURI).href;
+    if(img.src!==asset) img.src=asset;
     img.removeAttribute('srcset');
     img.loading='eager';
     img.decoding='async';
+    img.style.objectFit='contain';
+    img.style.objectPosition='center center';
+    img.style.background='#070707';
+    img.style.padding='6px';
+    img.alt='Pradeep Rajput — Founder of Peradian';
+    img.onerror=()=>{
+      const raw='https://raw.githubusercontent.com/peradiann/archive/main/pradip.jpg';
+      if(img.src!==raw) img.src=raw;
+    };
   }
-  fixFounderPhoto();
-  window.addEventListener('DOMContentLoaded',fixFounderPhoto,{once:true});
-  window.addEventListener('load',fixFounderPhoto,{once:true});
+
+  // Larger founder image with the complete head visible on desktop and mobile.
+  function fixArchiveVisuals(){
+    if(!document.getElementById('peradian-visual-fixes')){
+      const style=document.createElement('style');
+      style.id='peradian-visual-fixes';
+      style.textContent=`
+        html{background:#050304!important;min-height:100%;overscroll-behavior-y:none}
+        body{background-color:#050304!important;min-height:100vh;overscroll-behavior-y:none}
+        main,footer{background-color:transparent}
+        .founder{grid-template-columns:180px minmax(0,1fr)!important;gap:24px!important;align-items:start!important}
+        .founder-photo{width:180px!important;height:180px!important;min-width:180px!important;min-height:180px!important;object-fit:contain!important;object-position:center center!important;padding:6px!important;background:#070707!important;border-radius:22px!important}
+        @media(max-width:700px){
+          .founder{grid-template-columns:140px minmax(0,1fr)!important;gap:16px!important;align-items:start!important}
+          .founder-photo{width:140px!important;height:140px!important;min-width:140px!important;min-height:140px!important;border-radius:19px!important;padding:5px!important}
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    fixFounderPhoto();
+  }
+
+  fixArchiveVisuals();
+  window.addEventListener('DOMContentLoaded',fixArchiveVisuals,{once:true});
+  window.addEventListener('load',fixArchiveVisuals,{once:true});
+  setTimeout(fixArchiveVisuals,250);
+  setTimeout(fixArchiveVisuals,1000);
 })();
