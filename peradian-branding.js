@@ -94,19 +94,19 @@
   setTimeout(ensureTopicSuggestion,250);
   setTimeout(ensureTopicSuggestion,1000);
 
-  // Founder image: always use the GitHub Pages asset, never the GitHub /blob/ HTML page.
+  // Founder image: use the actual GitHub Pages asset, never the GitHub /blob/ HTML page.
   function fixFounderPhoto(){
     const img=document.querySelector('.founder-photo');
     if(!img) return;
-    const asset=new URL('pradip.jpg',document.baseURI).href;
+    const asset='https://peradiann.github.io/archive/pradip.jpg';
     if(img.src!==asset) img.src=asset;
     img.removeAttribute('srcset');
     img.loading='eager';
     img.decoding='async';
-    img.style.objectFit='contain';
-    img.style.objectPosition='center center';
+    img.style.objectFit='cover';
+    img.style.objectPosition='center 8%';
     img.style.background='#070707';
-    img.style.padding='6px';
+    img.style.padding='0';
     img.alt='Pradeep Rajput — Founder of Peradian';
     img.onerror=()=>{
       const raw='https://raw.githubusercontent.com/peradiann/archive/main/pradip.jpg';
@@ -114,7 +114,7 @@
     };
   }
 
-  // Larger founder image with the complete head visible on desktop and mobile.
+  // Founder photo is intentionally larger and uses a portrait frame so the head stays visible without stretching.
   function fixArchiveVisuals(){
     if(!document.getElementById('peradian-visual-fixes')){
       const style=document.createElement('style');
@@ -123,11 +123,11 @@
         html{background:#050304!important;min-height:100%;overscroll-behavior-y:none}
         body{background-color:#050304!important;min-height:100vh;overscroll-behavior-y:none}
         main,footer{background-color:transparent}
-        .founder{grid-template-columns:180px minmax(0,1fr)!important;gap:24px!important;align-items:start!important}
-        .founder-photo{width:180px!important;height:180px!important;min-width:180px!important;min-height:180px!important;object-fit:contain!important;object-position:center center!important;padding:6px!important;background:#070707!important;border-radius:22px!important}
+        .founder{grid-template-columns:190px minmax(0,1fr)!important;gap:26px!important;align-items:start!important}
+        .founder-photo{width:190px!important;height:238px!important;min-width:190px!important;min-height:238px!important;aspect-ratio:4/5!important;object-fit:cover!important;object-position:center 8%!important;padding:0!important;background:#070707!important;border-radius:22px!important}
         @media(max-width:700px){
-          .founder{grid-template-columns:140px minmax(0,1fr)!important;gap:16px!important;align-items:start!important}
-          .founder-photo{width:140px!important;height:140px!important;min-width:140px!important;min-height:140px!important;border-radius:19px!important;padding:5px!important}
+          .founder{grid-template-columns:145px minmax(0,1fr)!important;gap:16px!important;align-items:start!important}
+          .founder-photo{width:145px!important;height:182px!important;min-width:145px!important;min-height:182px!important;aspect-ratio:4/5!important;border-radius:19px!important;object-position:center 8%!important}
         }
       `;
       document.head.appendChild(style);
