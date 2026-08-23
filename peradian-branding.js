@@ -39,7 +39,8 @@
     article.id='case-002';
     article.dataset.search='002 the mystery of japanese folklore japanese folklore culture mystery history case 002';
     article.innerHTML=`<div class="num">002</div><div><h3>The Mystery of Japanese Folklore</h3><div class="meta">Research archive · Sources available · Case 002</div><a class="smallbtn" href="case-002the-mystery-of-japanese-folklore(1)pdf.pdf" target="_blank" rel="noopener">View Research PDF ↗</a><a class="smallbtn" href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">Peradian YouTube ↗</a></div><div class="thumb"><img src="japanese-folklore.jpg" alt="The Mystery of Japanese Folklore"></div>`;
-    firstCase.after(article);
+    // Newest documentary first: place Case 002 before the existing Case 001.
+    firstCase.before(article);
   }
 
   // Keep search/filter behavior working for both documentary cases.
