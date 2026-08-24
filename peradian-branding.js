@@ -43,6 +43,9 @@
         .brand,.brand span{color:#f5f2ee!important}
         .menu-panel .contact-copy,.menu-panel a[data-contact-info],.menu-panel .contact-description{display:none!important}
         .menu-panel a.peradian-contact-only{display:flex!important;align-items:center!important}
+        .links{display:flex!important;gap:22px!important;align-items:center!important;flex-wrap:nowrap!important}
+        .links a{font-size:10px!important;color:#b9b4b0!important;text-decoration:none!important;white-space:nowrap!important;transition:color .2s ease!important}
+        .links a:hover{color:#fff!important}
         .founder{display:grid!important;grid-template-columns:190px minmax(0,1fr)!important;grid-auto-flow:row!important;gap:12px 26px!important;align-items:start!important;margin:0 0 40px!important;padding:20px!important}
         .founder>div:not(.founder-photo){display:contents!important}
         .founder-photo{grid-column:1!important;grid-row:1 / span 3!important;width:190px!important;height:238px!important;min-width:190px!important;min-height:238px!important;aspect-ratio:4/5!important;object-fit:cover!important;object-position:center 8%!important;padding:0!important;background:#070707!important;border-radius:22px!important;align-self:start!important}
@@ -52,6 +55,7 @@
         .founder p{grid-column:1 / -1!important;grid-row:auto!important;width:100%!important}
         .founder-links{grid-column:1 / -1!important;grid-row:auto!important}
         @media(max-width:700px){
+          .links{display:none!important}
           .founder{grid-template-columns:145px minmax(0,1fr)!important;gap:10px 16px!important;padding:16px!important}
           .founder-photo{width:145px!important;height:182px!important;min-width:145px!important;min-height:182px!important;border-radius:19px!important;object-position:center 8%!important}
           .founder h3{font-size:25px!important;line-height:1.08!important;margin:0!important}
@@ -62,6 +66,18 @@
     fixFounderPhoto();fixThumbnailLoading();
   }
   fixArchiveVisuals();window.addEventListener('DOMContentLoaded',fixArchiveVisuals,{once:true});window.addEventListener('load',fixArchiveVisuals,{once:true});setTimeout(fixArchiveVisuals,250);setTimeout(fixArchiveVisuals,1000);
+
+  function ensureDesktopNavigation(){
+    const links=document.querySelector('.links');
+    if(!links||document.getElementById('desktopTopicSuggestion'))return;
+    const search=links.querySelector('a[href="#search"]');
+    const youtube=links.querySelector('a[href*="youtube.com/@peradiann"]');
+    if(!search||!youtube)return;
+    const topic=document.createElement('a');topic.id='desktopTopicSuggestion';topic.href='#suggest-topic';topic.textContent='Topic Suggestion';topic.addEventListener('click',e=>{e.preventDefault();document.getElementById('suggestModal')?.classList.add('open');document.getElementById('suggestModal')?.setAttribute('aria-hidden','false');setTimeout(()=>document.getElementById('topicInput')?.focus(),250)});
+    const contact=document.createElement('a');contact.id='desktopContact';contact.href='contact.html';contact.textContent='Contact';
+    search.after(topic,contact);
+  }
+  ensureDesktopNavigation();window.addEventListener('DOMContentLoaded',ensureDesktopNavigation,{once:true});window.addEventListener('load',ensureDesktopNavigation,{once:true});setTimeout(ensureDesktopNavigation,100);setTimeout(ensureDesktopNavigation,500);setTimeout(ensureDesktopNavigation,1200);
 
   function routeContact(){
     const panel=document.getElementById('menuPanel');
