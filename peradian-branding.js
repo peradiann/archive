@@ -25,20 +25,11 @@
     cards.forEach((card,index)=>{
       const img=card.querySelector('.thumb img');
       if(!img)return;
-      img.decoding='async';
-      img.removeAttribute('srcset');
-      img.style.display='block';
-      img.style.width='100%';
-      img.style.height='100%';
+      img.decoding='async';img.removeAttribute('srcset');img.style.display='block';img.style.width='100%';img.style.height='100%';
       if(index===0){img.loading='eager';img.fetchPriority='high'}else{img.loading='lazy';img.fetchPriority='low'}
     });
     const first=cards[0]?.querySelector('.thumb img');
-    if(first){
-      const href=first.currentSrc||first.src;
-      if(href&&!document.querySelector('link[data-peradian-thumb-preload]')){
-        const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.href=href;preload.fetchPriority='high';preload.setAttribute('data-peradian-thumb-preload','true');document.head.appendChild(preload)
-      }
-    }
+    if(first){const href=first.currentSrc||first.src;if(href&&!document.querySelector('link[data-peradian-thumb-preload]')){const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.href=href;preload.fetchPriority='high';preload.setAttribute('data-peradian-thumb-preload','true');document.head.appendChild(preload)}}
   }
 
   function fixArchiveVisuals(){
@@ -50,7 +41,8 @@
         .case{content-visibility:auto;contain-intrinsic-size:360px}
         .thumb{contain:layout paint;isolation:isolate}
         .brand,.brand span{color:#f5f2ee!important}
-        .menu-panel .contact-copy{display:none!important}
+        .menu-panel .contact-copy,.menu-panel a[data-contact-info],.menu-panel .contact-description{display:none!important}
+        .menu-panel a.peradian-contact-only{display:flex!important;align-items:center!important}
         .founder{display:grid!important;grid-template-columns:190px minmax(0,1fr)!important;grid-auto-flow:row!important;gap:12px 26px!important;align-items:start!important;margin:0 0 40px!important;padding:20px!important}
         .founder>div:not(.founder-photo){display:contents!important}
         .founder-photo{grid-column:1!important;grid-row:1 / span 3!important;width:190px!important;height:238px!important;min-width:190px!important;min-height:238px!important;aspect-ratio:4/5!important;object-fit:cover!important;object-position:center 8%!important;padding:0!important;background:#070707!important;border-radius:22px!important;align-self:start!important}
@@ -67,32 +59,30 @@
           .founder-kicker{font-size:7px!important;letter-spacing:1.6px!important;margin:2px 0 0!important}
         }
       `;document.head.appendChild(style)}
-    fixFounderPhoto();
-    fixThumbnailLoading();
+    fixFounderPhoto();fixThumbnailLoading();
   }
   fixArchiveVisuals();window.addEventListener('DOMContentLoaded',fixArchiveVisuals,{once:true});window.addEventListener('load',fixArchiveVisuals,{once:true});setTimeout(fixArchiveVisuals,250);setTimeout(fixArchiveVisuals,1000);
 
   function routeContact(){
-    document.querySelectorAll('#menuPanel a').forEach(a=>{
+    const panel=document.getElementById('menuPanel');
+    if(!panel)return;
+    panel.querySelectorAll('a').forEach(a=>{
       const label=a.querySelector('b');
-      const copy=a.querySelector('.contact-copy');
-      if(label&&label.textContent.trim()==='Contact'){
-        if(copy)copy.remove();
-        a.href='contact.html';
-        a.removeAttribute('target');
-        a.removeAttribute('rel');
+      if(!label)return;
+      if(label.textContent.trim().toLowerCase()==='contact'){
+        const icon=a.querySelector('.mi');
+        const contactLabel=document.createElement('b');
+        contactLabel.textContent='Contact';
+        contactLabel.style.color='#f5f2ee';
+        a.replaceChildren(...(icon?[icon,contactLabel]:[contactLabel]));
+        a.classList.add('peradian-contact-only');
+        a.removeAttribute('target');a.removeAttribute('rel');a.href='contact.html';
+        a.setAttribute('aria-label','Contact Peradian');
       }
     });
-    document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
-      const inMenu=a.closest('#menuPanel');
-      if(inMenu){
-        a.href='contact.html';
-        a.removeAttribute('target');
-        a.removeAttribute('rel');
-      }
-    });
-    document.querySelectorAll('#menuPanel .contact-copy').forEach(el=>el.remove());
-    document.querySelectorAll('#menuPanel .brand,.brand span').forEach(el=>el.style.setProperty('color','#f5f2ee','important'));
+    panel.querySelectorAll('.contact-copy,.contact-description,[data-contact-info]').forEach(el=>el.remove());
+    panel.querySelectorAll('a[href^="mailto:"]').forEach(a=>{a.href='contact.html';a.removeAttribute('target');a.removeAttribute('rel')});
+    panel.querySelectorAll('.brand,.brand span').forEach(el=>el.style.setProperty('color','#f5f2ee','important'));
   }
-  routeContact();window.addEventListener('DOMContentLoaded',routeContact,{once:true});window.addEventListener('load',routeContact,{once:true});setTimeout(routeContact,100);setTimeout(routeContact,500);setTimeout(routeContact,1200);
+  routeContact();window.addEventListener('DOMContentLoaded',routeContact,{once:true});window.addEventListener('load',routeContact,{once:true});setTimeout(routeContact,100);setTimeout(routeContact,500);setTimeout(routeContact,1200);setTimeout(routeContact,2000);
 })();
