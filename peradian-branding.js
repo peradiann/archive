@@ -49,6 +49,8 @@
         main,footer{background-color:transparent}
         .case{content-visibility:auto;contain-intrinsic-size:360px}
         .thumb{contain:layout paint;isolation:isolate}
+        .brand,.brand span{color:#f5f2ee!important}
+        .menu-panel .contact-copy{display:none!important}
         .founder{display:grid!important;grid-template-columns:190px minmax(0,1fr)!important;grid-auto-flow:row!important;gap:12px 26px!important;align-items:start!important;margin:0 0 40px!important;padding:20px!important}
         .founder>div:not(.founder-photo){display:contents!important}
         .founder-photo{grid-column:1!important;grid-row:1 / span 3!important;width:190px!important;height:238px!important;min-width:190px!important;min-height:238px!important;aspect-ratio:4/5!important;object-fit:cover!important;object-position:center 8%!important;padding:0!important;background:#070707!important;border-radius:22px!important;align-self:start!important}
@@ -89,6 +91,8 @@
         a.removeAttribute('rel');
       }
     });
+    document.querySelectorAll('#menuPanel .contact-copy').forEach(el=>el.remove());
+    document.querySelectorAll('#menuPanel .brand,.brand span').forEach(el=>el.style.setProperty('color','#f5f2ee','important'));
   }
   routeContact();window.addEventListener('DOMContentLoaded',routeContact,{once:true});window.addEventListener('load',routeContact,{once:true});setTimeout(routeContact,100);setTimeout(routeContact,500);setTimeout(routeContact,1200);
 })();
