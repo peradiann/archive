@@ -71,6 +71,16 @@
   fixArchiveVisuals();window.addEventListener('DOMContentLoaded',fixArchiveVisuals,{once:true});window.addEventListener('load',fixArchiveVisuals,{once:true});setTimeout(fixArchiveVisuals,250);setTimeout(fixArchiveVisuals,1000);
 
   function routeContact(){
+    document.querySelectorAll('#menuPanel a').forEach(a=>{
+      const label=a.querySelector('b');
+      const copy=a.querySelector('.contact-copy');
+      if(label&&label.textContent.trim()==='Contact'){
+        if(copy)copy.remove();
+        a.href='contact.html';
+        a.removeAttribute('target');
+        a.removeAttribute('rel');
+      }
+    });
     document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
       const inMenu=a.closest('#menuPanel');
       if(inMenu){
@@ -80,5 +90,5 @@
       }
     });
   }
-  routeContact();window.addEventListener('DOMContentLoaded',routeContact,{once:true});window.addEventListener('load',routeContact,{once:true});setTimeout(routeContact,250);
+  routeContact();window.addEventListener('DOMContentLoaded',routeContact,{once:true});window.addEventListener('load',routeContact,{once:true});setTimeout(routeContact,100);setTimeout(routeContact,500);setTimeout(routeContact,1200);
 })();
