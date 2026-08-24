@@ -39,6 +39,16 @@ jobs:
           if old_again in s and 'submitBtn=document.getElementById(\'suggestSubmit\');if(submitBtn)submitBtn.disabled=false' not in s:
               s = s.replace(old_again, new_again, 1)
 
+          old_nav = '<a href="#search">Search</a><a href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">YouTube ↗</a>'
+          new_nav = '<a id="desktopTopicSuggestion" href="#suggest-topic" onclick="openSuggest();return false;">Topic Suggestion</a><a id="desktopContact" href="contact.html">Contact</a>'
+          if old_nav in s and 'id="desktopTopicSuggestion"' not in s:
+              s = s.replace(old_nav, '<a href="#search">Search</a>' + new_nav + '<a href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">YouTube ↗</a>', 1)
+
+          old_css = '.links{display:flex;gap:28px}.links a{font-size:11px;color:#b9b4b0;text-decoration:none}'
+          new_css = '.links{display:flex;gap:22px;align-items:center;flex-wrap:nowrap}.links a{font-size:10px;color:#b9b4b0;text-decoration:none;white-space:nowrap;transition:color .2s ease}.links a:hover{color:#fff}'
+          if old_css in s and 'flex-wrap:nowrap}.links a{font-size:10px' not in s:
+              s = s.replace(old_css, new_css, 1)
+
           p.write_text(s, encoding='utf-8')
           PY
 
@@ -51,5 +61,5 @@ jobs:
             echo "No injection needed"
             exit 0
           fi
-          git commit -m "Fix topic suggestion redirect [skip ci]"
+          git commit -m "Fix desktop navigation options [skip ci]"
           git push
