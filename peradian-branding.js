@@ -5,7 +5,7 @@
   let m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement('meta');m.name='theme-color';document.head.appendChild(m)}m.content='#050304';
   const og=(property,content)=>{let el=document.querySelector(`meta[property="${property}"]`);if(!el){el=document.createElement('meta');el.setAttribute('property',property);document.head.appendChild(el)}el.content=content};
   og('og:title','Peradian Resources — Documentary Research Archive');og('og:description','Explore the research, sources and stories behind Peradian documentaries.');og('og:image',new URL(logo,location.href).href);og('og:type','website');og('og:url',location.href.split('#')[0]);document.title='Peradian Resources — Documentary Research Archive';
-  document.querySelectorAll('a').forEach(a=>{const text=(a.textContent||'').trim().toLowerCase();const href=a.getAttribute('href')||'';if(text.includes('peradian web')||/rrdobhal081-blip\.github\.io/i.test(href))a.href='https://peradiann.github.io/archive/'});
+  document.querySelectorAll('a').forEach(a=>{const text=(a.textContent||'').trim().toLowerCase();const href=a.getAttribute('href')||'';if(text.includes('peradian web')||/rrdobhal081-blip\\.github\\.io/i.test(href))a.href='https://peradiann.github.io/archive/'});
 
   const wrap=document.querySelector('#documentaries .wrap');const firstCase=wrap?.querySelector('.case');
   if(wrap&&firstCase&&!document.getElementById('case-002')){const article=document.createElement('article');article.className='case';article.id='case-002';article.dataset.search='002 the mystery of japanese folklore japanese folklore culture mystery history case 002';article.innerHTML=`<div class="num">002</div><div><h3>The Mystery of Japanese Folklore</h3><div class="meta">Research archive · Sources available · Case 002</div><a class="smallbtn" href="case-002the-mystery-of-japanese-folklore(1)pdf.pdf" target="_blank" rel="noopener">View Research PDF ↗</a><a class="smallbtn" href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">Peradian YouTube ↗</a></div><div class="thumb"><img src="japanese-folklore.jpg" alt="The Mystery of Japanese Folklore"></div>`;firstCase.before(article)}
@@ -38,16 +38,61 @@
 
   function fixFounderPhoto(){const img=document.querySelector('.founder-photo');if(!img)return;const asset='https://peradiann.github.io/archive/pradip.jpg';if(img.src!==asset)img.src=asset;img.removeAttribute('srcset');img.loading='eager';img.decoding='async';img.fetchPriority='high';img.style.objectFit='cover';img.style.objectPosition='center 8%';img.style.background='#070707';img.style.padding='0';img.alt='Pradeep Rajput — Founder of Peradian';img.onerror=()=>{const raw='https://raw.githubusercontent.com/peradiann/archive/main/pradip.jpg';if(img.src!==raw)img.src=raw}};
 
+  const CDN='https://images.weserv.nl/';
+  const imageCdnUrl=(source,width,format='webp')=>`${CDN}?url=${encodeURIComponent(source)}&w=${width}&q=78&output=${format}`;
+
+  function optimizeThumb(img,index){
+    if(!img||img.dataset.peradianOptimized==='true')return;
+    const rawSrc=img.getAttribute('src');
+    if(!rawSrc)return;
+    const source=new URL(rawSrc,location.href).href;
+    const picture=document.createElement('picture');
+    const avif=document.createElement('source');
+    const webp=document.createElement('source');
+    avif.type='image/avif';
+    webp.type='image/webp';
+    avif.srcset=`${imageCdnUrl(source,480,'avif')} 480w, ${imageCdnUrl(source,720,'avif')} 720w, ${imageCdnUrl(source,900,'avif')} 900w`;
+    webp.srcset=`${imageCdnUrl(source,480,'webp')} 480w, ${imageCdnUrl(source,720,'webp')} 720w, ${imageCdnUrl(source,900,'webp')} 900w`;
+    img.dataset.peradianOptimized='true';
+    img.dataset.originalSrc=source;
+    img.width=260;img.height=146;
+    img.sizes='(max-width:700px) calc(100vw - 32px), 260px';
+    img.srcset=`${imageCdnUrl(source,480,'webp')} 480w, ${imageCdnUrl(source,720,'webp')} 720w, ${imageCdnUrl(source,900,'webp')} 900w`;
+    img.src=imageCdnUrl(source,900,'webp');
+    img.decoding='async';
+    img.classList.add('is-loading');
+    if(index===0){img.loading='eager';img.fetchPriority='high'}else{img.loading='lazy';img.fetchPriority='low'}
+    img.addEventListener('load',()=>img.classList.remove('is-loading'),{once:true});
+    img.addEventListener('error',()=>{
+      if(img.dataset.peradianFallback==='true')return;
+      img.dataset.peradianFallback='true';
+      img.src=source;img.srcset='';img.classList.remove('is-loading');
+    },{once:false});
+    const parent=img.parentNode;
+    if(parent&&parent.tagName.toLowerCase()!=='picture'){
+      parent.insertBefore(picture,img);
+      picture.appendChild(avif);picture.appendChild(webp);picture.appendChild(img);
+      picture.style.display='block';picture.style.width='100%';picture.style.height='100%';
+    }
+  }
+
   function fixThumbnailLoading(){
     const cards=[...document.querySelectorAll('.case')];
     cards.forEach((card,index)=>{
       const img=card.querySelector('.thumb img');
       if(!img)return;
-      img.decoding='async';img.removeAttribute('srcset');img.style.display='block';img.style.width='100%';img.style.height='100%';
-      if(index===0){img.loading='eager';img.fetchPriority='high'}else{img.loading='lazy';img.fetchPriority='low'}
+      optimizeThumb(img,index);
+      img.style.display='block';img.style.width='100%';img.style.height='100%';img.style.objectFit='cover';
     });
     const first=cards[0]?.querySelector('.thumb img');
-    if(first){const href=first.currentSrc||first.src;if(href&&!document.querySelector('link[data-peradian-thumb-preload]')){const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.href=href;preload.fetchPriority='high';preload.setAttribute('data-peradian-thumb-preload','true');document.head.appendChild(preload)}}
+    if(first&&!document.querySelector('link[data-peradian-thumb-preload]')){
+      const source=first.dataset.originalSrc;
+      if(source){
+        const preload=document.createElement('link');
+        preload.rel='preload';preload.as='image';preload.href=imageCdnUrl(source,900,'webp');preload.fetchPriority='high';
+        preload.setAttribute('data-peradian-thumb-preload','true');document.head.appendChild(preload);
+      }
+    }
   }
 
   function fixArchiveVisuals(){
@@ -57,7 +102,11 @@
         body{background-color:#050304!important;min-height:100vh;overscroll-behavior-y:none}
         main,footer{background-color:transparent}
         .case{content-visibility:auto;contain-intrinsic-size:360px}
-        .thumb{contain:layout paint;isolation:isolate}
+        .thumb{contain:layout paint;isolation:isolate;position:relative;background:linear-gradient(110deg,#101010 8%,#1a1515 18%,#101010 33%);background-size:220% 100%;animation:peradianThumbShimmer 1.35s linear infinite}
+        .thumb picture{display:block!important;width:100%!important;height:100%!important}
+        .thumb img{transition:opacity .35s ease,filter .35s ease,transform .35s ease}
+        .thumb img.is-loading{opacity:.45;filter:blur(10px) saturate(.72);transform:scale(1.025)}
+        @keyframes peradianThumbShimmer{0%{background-position:220% 0}100%{background-position:-20% 0}}
         .brand,.brand span{color:#f5f2ee!important}
         .menu-panel .contact-copy,.menu-panel a[data-contact-info],.menu-panel .contact-description{display:none!important}
         .menu-panel a.peradian-contact-only{display:flex!important;align-items:center!important}
