@@ -1,13 +1,14 @@
 (()=>{
-  const BASE='https://peradiann.github.io/archive/';
-  const logo=BASE+'peradian-logo.png';
+  const SITE=new URL('.',location.href).href;
+  const RAW='https://raw.githubusercontent.com/peradiann/archive/main/';
+  const asset=name=>SITE+name;
+  const logo=asset('peradian-logo.png');
 
   const addLink=(rel,href,extra={})=>{
     let el=document.querySelector(`link[rel="${rel}"]`);
     if(!el){el=document.createElement('link');el.rel=rel;document.head.appendChild(el)}
     el.href=href;Object.assign(el,extra);
   };
-
   addLink('icon',logo,{type:'image/png'});
   addLink('shortcut icon',logo,{type:'image/png'});
   addLink('apple-touch-icon',logo,{sizes:'180x180'});
@@ -41,10 +42,9 @@
         <a class="smallbtn" href="case-002the-mystery-of-japanese-folklore(1)pdf.pdf" target="_blank" rel="noopener">View Research PDF ↗</a>
         <a class="smallbtn" href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">Peradian YouTube ↗</a>
       </div>
-      <div class="thumb"><img src="${BASE}japanese-folklore.jpg" alt="The Mystery of Japanese Folklore" width="260" height="146"></div>`;
+      <div class="thumb"><img src="${asset('japanese-folklore.jpg')}" alt="The Mystery of Japanese Folklore" width="260" height="146"></div>`;
     firstCase.before(article);
   }
-  addCase002();
 
   function runArchiveSearch(){
     if(!wrap)return;
@@ -65,7 +65,6 @@
 
   document.getElementById('searchBox')?.addEventListener('input',runArchiveSearch);
   document.querySelectorAll('.cat').forEach(cat=>cat.addEventListener('click',()=>setTimeout(runArchiveSearch,0)));
-  runArchiveSearch();
 
   const researchCount=document.querySelector('.dashcard strong');
   if(researchCount)researchCount.textContent='002';
@@ -100,13 +99,38 @@
   function fixFounderPhoto(){
     const img=document.querySelector('.founder-photo');
     if(!img)return;
-    img.src=BASE+'pradip.jpg';
+    img.src=asset('pradip.jpg');
+    img.onerror=()=>{img.onerror=null;img.src=RAW+'pradip.jpg'};
     img.removeAttribute('srcset');
     img.width=190;img.height=238;
     img.loading='eager';img.decoding='async';img.fetchPriority='high';
-    img.objectFit='cover';
     img.style.objectFit='cover';img.style.objectPosition='center 8%';img.style.padding='0';
     img.alt='Pradeep Rajput — Founder of Peradian';
+  }
+
+  function fixThumbnailImage(img,file,index){
+    if(!img||!file)return;
+    const primary=asset(file);
+    const fallback=RAW+file;
+    img.removeAttribute('srcset');
+    img.removeAttribute('sizes');
+    img.width=260;img.height=146;
+    img.loading=index===0?'eager':'lazy';
+    img.decoding='async';
+    img.fetchPriority=index===0?'high':'low';
+    img.referrerPolicy='no-referrer';
+    img.style.display='block';img.style.width='100%';img.style.height='100%';img.style.objectFit='cover';
+    img.classList.add('peradian-thumb-loading');
+    img.onerror=()=>{
+      if(img.dataset.fallback==='1'){
+        img.classList.remove('peradian-thumb-loading');
+        return;
+      }
+      img.dataset.fallback='1';
+      img.src=fallback;
+    };
+    img.onload=()=>img.classList.remove('peradian-thumb-loading');
+    img.src=primary;
   }
 
   function fixThumbnails(){
@@ -114,26 +138,11 @@
     cards.forEach((card,index)=>{
       const img=card.querySelector('.thumb img');
       if(!img)return;
-
-      const alt=(img.alt||'').toLowerCase();
-      let source=img.getAttribute('src')||'';
-      if(alt.includes('japanese folklore')) source=BASE+'japanese-folklore.jpg';
-      else if(alt.includes('kim jong un')) source=BASE+'IMG_20260813_093426.jpg';
-
-      img.src=source;
-      img.removeAttribute('srcset');
-      img.removeAttribute('sizes');
-      img.width=260;img.height=146;
-      img.loading=index===0?'eager':'lazy';
-      img.decoding='async';
-      img.fetchPriority=index===0?'high':'low';
-      img.style.display='block';img.style.width='100%';img.style.height='100%';img.style.objectFit='cover';
-      img.classList.add('peradian-thumb-loading');
-      img.addEventListener('load',()=>img.classList.remove('peradian-thumb-loading'),{once:true});
-      img.addEventListener('error',()=>{
-        img.classList.remove('peradian-thumb-loading');
-        img.alt=alt.includes('japanese folklore')?'The Mystery of Japanese Folklore':'The Most Dangerous Dictator Kim Jong Un';
-      },{once:true});
+      const title=(card.querySelector('h3')?.textContent||img.alt||'').toLowerCase();
+      let file='';
+      if(title.includes('japanese folklore')||title.includes('yōkai'))file='japanese-folklore.jpg';
+      else if(title.includes('kim jong un'))file='IMG_20260813_093426.jpg';
+      if(file)fixThumbnailImage(img,file,index);
     });
 
     const first=cards[0]?.querySelector('.thumb img');
