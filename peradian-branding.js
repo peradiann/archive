@@ -15,8 +15,26 @@
   searchBox?.addEventListener('input',runArchiveSearch);document.querySelectorAll('.cat').forEach(cat=>cat.addEventListener('click',()=>setTimeout(runArchiveSearch,0)));runArchiveSearch();
   const researchCount=document.querySelector('.dashcard strong');if(researchCount)researchCount.textContent='002';const factCount=document.querySelector('.fact strong');if(factCount)factCount.textContent='02';
 
-  function ensureTopicSuggestion(){const heroActions=document.querySelector('.hero .actions');if(!heroActions||document.getElementById('topicSuggestionHero'))return;const btn=document.createElement('button');btn.id='topicSuggestionHero';btn.className='button';btn.type='button';btn.setAttribute('aria-label','Suggest a Video Topic');btn.setAttribute('data-topic-suggestion','true');btn.innerHTML=`<span style="display:inline-grid;place-items:center;width:16px;height:16px;margin-right:7px;color:#ff7448;font-size:16px;line-height:1">✦</span><span>Topic Suggestion</span>`;btn.style.cursor='pointer';btn.style.position='relative';btn.style.zIndex='10';btn.style.whiteSpace='nowrap';btn.style.touchAction='manipulation';btn.addEventListener('click',()=>{const modal=document.getElementById('suggestModal');if(modal){modal.classList.add('open');modal.setAttribute('aria-hidden','false');setTimeout(()=>document.getElementById('topicInput')?.focus(),250)}});heroActions.appendChild(btn)}
+  function openTopicModal(){const modal=document.getElementById('suggestModal');if(modal){modal.classList.add('open');modal.setAttribute('aria-hidden','false');setTimeout(()=>document.getElementById('topicInput')?.focus(),250)}}
+
+  function ensureTopicSuggestion(){const heroActions=document.querySelector('.hero .actions');if(!heroActions||document.getElementById('topicSuggestionHero'))return;const btn=document.createElement('button');btn.id='topicSuggestionHero';btn.className='button';btn.type='button';btn.setAttribute('aria-label','Suggest a Video Topic');btn.setAttribute('data-topic-suggestion','true');btn.innerHTML=`<span style="display:inline-grid;place-items:center;width:16px;height:16px;margin-right:7px;color:#ff7448;font-size:16px;line-height:1">✦</span><span>Topic Suggestion</span>`;btn.style.cursor='pointer';btn.style.position='relative';btn.style.zIndex='10';btn.style.whiteSpace='nowrap';btn.style.touchAction='manipulation';btn.addEventListener('click',openTopicModal);heroActions.appendChild(btn)}
   ensureTopicSuggestion();window.addEventListener('DOMContentLoaded',ensureTopicSuggestion,{once:true});window.addEventListener('load',ensureTopicSuggestion,{once:true});setTimeout(ensureTopicSuggestion,250);setTimeout(ensureTopicSuggestion,1000);
+
+  function ensureContactHero(){
+    const heroActions=document.querySelector('.hero .actions');
+    if(!heroActions||document.getElementById('contactHero'))return;
+    const btn=document.createElement('a');
+    btn.id='contactHero';
+    btn.className='button';
+    btn.href='contact.html';
+    btn.setAttribute('aria-label','Contact Peradian');
+    btn.innerHTML=`<span style="display:inline-grid;place-items:center;width:16px;height:16px;margin-right:7px;color:#ff7448;font-size:15px;line-height:1">✉</span><span>Contact</span>`;
+    btn.style.position='relative';
+    btn.style.zIndex='10';
+    btn.style.whiteSpace='nowrap';
+    heroActions.appendChild(btn);
+  }
+  ensureContactHero();window.addEventListener('DOMContentLoaded',ensureContactHero,{once:true});window.addEventListener('load',ensureContactHero,{once:true});setTimeout(ensureContactHero,300);setTimeout(ensureContactHero,1100);
 
   function fixFounderPhoto(){const img=document.querySelector('.founder-photo');if(!img)return;const asset='https://peradiann.github.io/archive/pradip.jpg';if(img.src!==asset)img.src=asset;img.removeAttribute('srcset');img.loading='eager';img.decoding='async';img.fetchPriority='high';img.style.objectFit='cover';img.style.objectPosition='center 8%';img.style.background='#070707';img.style.padding='0';img.alt='Pradeep Rajput — Founder of Peradian';img.onerror=()=>{const raw='https://raw.githubusercontent.com/peradiann/archive/main/pradip.jpg';if(img.src!==raw)img.src=raw}};
 
@@ -73,7 +91,7 @@
     const search=links.querySelector('a[href="#search"]');
     const youtube=links.querySelector('a[href*="youtube.com/@peradiann"]');
     if(!search||!youtube)return;
-    const topic=document.createElement('a');topic.id='desktopTopicSuggestion';topic.href='#suggest-topic';topic.textContent='Topic Suggestion';topic.addEventListener('click',e=>{e.preventDefault();document.getElementById('suggestModal')?.classList.add('open');document.getElementById('suggestModal')?.setAttribute('aria-hidden','false');setTimeout(()=>document.getElementById('topicInput')?.focus(),250)});
+    const topic=document.createElement('a');topic.id='desktopTopicSuggestion';topic.href='#suggest-topic';topic.textContent='Topic Suggestion';topic.addEventListener('click',e=>{e.preventDefault();openTopicModal()});
     const contact=document.createElement('a');contact.id='desktopContact';contact.href='contact.html';contact.textContent='Contact';
     search.after(topic,contact);
   }
