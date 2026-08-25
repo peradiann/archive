@@ -50,16 +50,24 @@ jobs:
               s = s.replace(old_css, new_css, 1)
 
           p.write_text(s, encoding='utf-8')
+
+          # Load the premium Peradian preloader before page content on every HTML page.
+          preloader = '<script src="preloader.js"></script>'
+          for page in Path('.').glob('*.html'):
+              page_text = page.read_text(encoding='utf-8')
+              if preloader not in page_text:
+                  page_text = page_text.replace('</head>', preloader + '</head>', 1)
+                  page.write_text(page_text, encoding='utf-8')
           PY
 
       - name: Commit injected branding
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html
+          git add index.html app.html contact.html platform.html
           if git diff --cached --quiet; then
             echo "No injection needed"
             exit 0
           fi
-          git commit -m "Fix desktop navigation options [skip ci]"
+          git commit -m "Add premium Peradian loading screen [skip ci]"
           git push
