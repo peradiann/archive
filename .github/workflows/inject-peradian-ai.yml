@@ -50,14 +50,6 @@ jobs:
               s = s.replace(old_css, new_css, 1)
 
           p.write_text(s, encoding='utf-8')
-
-          # Load the premium Peradian preloader before page content on every HTML page.
-          preloader = '<script src="preloader.js"></script>'
-          for page in Path('.').glob('*.html'):
-              page_text = page.read_text(encoding='utf-8')
-              if preloader not in page_text:
-                  page_text = page_text.replace('</head>', preloader + '</head>', 1)
-                  page.write_text(page_text, encoding='utf-8')
           PY
 
       - name: Commit injected branding
@@ -69,5 +61,5 @@ jobs:
             echo "No injection needed"
             exit 0
           fi
-          git commit -m "Add premium Peradian loading screen [skip ci]"
+          git commit -m "Remove website loading screen [skip ci]"
           git push
