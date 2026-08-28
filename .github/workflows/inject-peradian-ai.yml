@@ -28,36 +28,15 @@ jobs:
               if tag not in s:
                   s = s.replace('</body>', tag + '</body>', 1)
           s = s.replace('rrdobhal081-blip.github.io/archive', 'peradiann.github.io/archive')
-
-          old_submit = "suggestForm.addEventListener('submit',()=>{setTimeout(()=>{"
-          new_submit = "suggestForm.addEventListener('submit',async e=>{e.preventDefault();const submitBtn=document.getElementById('suggestSubmit');if(submitBtn)submitBtn.disabled=true;try{await fetch(suggestForm.action,{method:'POST',body:new FormData(suggestForm),mode:'no-cors',keepalive:true})}catch(err){}setTimeout(()=>{"
-          if old_submit in s and 'e.preventDefault();const submitBtn=document.getElementById(\'suggestSubmit\')' not in s:
-              s = s.replace(old_submit, new_submit, 1)
-
-          old_again = "document.getElementById('thankClose').addEventListener('click',()=>{thankyou.classList.remove('show');suggestForm.classList.remove('hide');suggestForm.reset();topicInput.focus()})"
-          new_again = "document.getElementById('thankClose').addEventListener('click',()=>{thankyou.classList.remove('show');suggestForm.classList.remove('hide');suggestForm.reset();const submitBtn=document.getElementById('suggestSubmit');if(submitBtn)submitBtn.disabled=false;topicInput.focus()})"
-          if old_again in s and 'submitBtn=document.getElementById(\'suggestSubmit\');if(submitBtn)submitBtn.disabled=false' not in s:
-              s = s.replace(old_again, new_again, 1)
-
-          old_nav = '<a href="#search">Search</a><a href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">YouTube ↗</a>'
-          new_nav = '<a id="desktopTopicSuggestion" href="#suggest-topic" onclick="openSuggest();return false;">Topic Suggestion</a><a id="desktopContact" href="contact.html">Contact</a>'
-          if old_nav in s and 'id="desktopTopicSuggestion"' not in s:
-              s = s.replace(old_nav, '<a href="#search">Search</a>' + new_nav + '<a href="https://youtube.com/@peradiann?si=t7XTuLBd3xRZQ4Nj" target="_blank" rel="noopener">YouTube ↗</a>', 1)
-
-          old_css = '.links{display:flex;gap:28px}.links a{font-size:11px;color:#b9b4b0;text-decoration:none}'
-          new_css = '.links{display:flex;gap:22px;align-items:center;flex-wrap:nowrap}.links a{font-size:10px;color:#b9b4b0;text-decoration:none;white-space:nowrap;transition:color .2s ease}.links a:hover{color:#fff}'
-          if old_css in s and 'flex-wrap:nowrap}.links a{font-size:10px' not in s:
-              s = s.replace(old_css, new_css, 1)
-
           p.write_text(s, encoding='utf-8')
 
-          # Keep Quick Practice in quiz.html and layer the four-level system on top of the existing page.
+          # Category cards on Quick Practice open a dedicated category page.
           q = Path('quiz.html')
           if q.exists():
               qs = q.read_text(encoding='utf-8')
-              tag = '<script src="quiz-levels.js"></script>'
-              if tag not in qs:
-                  qs = qs.replace('</body>', tag + '</body>', 1)
+              route = '<script src="quiz-category-routing.js"></script>'
+              if route not in qs:
+                  qs = qs.replace('</body>', route + '</body>', 1)
                   q.write_text(qs, encoding='utf-8')
           PY
 
@@ -65,10 +44,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html app.html contact.html platform.html quiz.html quiz-levels.js
+          git add index.html quiz.html
           if git diff --cached --quiet; then
             echo "No injection needed"
             exit 0
           fi
-          git commit -m "Add four-level Quick Practice system [skip ci]"
+          git commit -m "Route Quick Practice categories to dedicated pages [skip ci]"
           git push
