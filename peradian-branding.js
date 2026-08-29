@@ -26,3 +26,23 @@
   function run(){style();quickFeatures();routeQuizCategories();founder();removeCases()}
   run();document.addEventListener('DOMContentLoaded',run,{once:true});window.addEventListener('load',run,{once:true});setTimeout(run,300);setTimeout(run,1000);
 })();
+
+/* Ensure the Contact item in the mobile three-line menu opens the dedicated contact page. */
+(()=>{
+  const fixContactRoute=()=>{
+    const panel=document.getElementById('menuPanel');
+    if(!panel)return;
+    panel.querySelectorAll('a').forEach(a=>{
+      const text=(a.textContent||'').trim().toLowerCase();
+      if(text.includes('contact')){
+        a.href='contact.html';
+        a.removeAttribute('target');
+        a.onclick=null;
+      }
+    });
+  };
+  fixContactRoute();
+  document.addEventListener('DOMContentLoaded',fixContactRoute,{once:true});
+  setTimeout(fixContactRoute,100);
+  setTimeout(fixContactRoute,500);
+})();
