@@ -15,3 +15,14 @@
 })();
 
 (()=>{const fixContactRoute=()=>{const panel=document.getElementById('menuPanel');if(!panel)return;panel.querySelectorAll('a').forEach(a=>{if((a.textContent||'').trim().toLowerCase().includes('contact')){a.href='contact.html';a.removeAttribute('target');a.onclick=null}})};fixContactRoute();document.addEventListener('DOMContentLoaded',fixContactRoute,{once:true});setTimeout(fixContactRoute,100);setTimeout(fixContactRoute,500)})();
+
+(()=>{
+  const addFireHighlight=()=>{
+    if(document.getElementById('peradian-fire-highlight-styles'))return;
+    const s=document.createElement('style');s.id='peradian-fire-highlight-styles';
+    s.textContent=`.fire-highlight{position:relative;display:inline-block;color:transparent!important;background:linear-gradient(105deg,#fff4ea 0%,#ffd1a8 18%,#ff8a3d 42%,#ff3b1f 64%,#ffb36b 82%,#fff0df 100%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;text-shadow:0 0 10px rgba(255,74,28,.18),0 0 24px rgba(255,53,22,.12);animation:peradianFireText 3.6s ease-in-out infinite;filter:drop-shadow(0 0 6px rgba(255,60,25,.12))}.fire-highlight::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,#ff5a2a 35%,#ffbd78 50%,#ff3a20 65%,transparent);opacity:.7;transform:scaleX(.35);transform-origin:center;animation:peradianFireLine 2.8s ease-in-out infinite}.fire-highlight[data-fire-static="true"]{animation:none;background-position:50% 50%}.fire-highlight[data-fire-static="true"]::after{animation:none;transform:scaleX(.7)}@keyframes peradianFireText{0%,100%{background-position:0% 50%;filter:drop-shadow(0 0 5px rgba(255,60,25,.10))}50%{background-position:100% 50%;filter:drop-shadow(0 0 10px rgba(255,60,25,.28))}}@keyframes peradianFireLine{0%,100%{opacity:.25;transform:scaleX(.18)}50%{opacity:.85;transform:scaleX(.75)}}@media(prefers-reduced-motion:reduce){.fire-highlight,.fire-highlight::after{animation:none!important}.fire-highlight{background-position:50% 50%!important}}`;
+    document.head.appendChild(s);
+  };
+  const apply=()=>{addFireHighlight();document.querySelectorAll('mark.fire-highlight,[data-fire-highlight]').forEach(el=>el.classList.add('fire-highlight'));document.querySelectorAll('.hero h1 span').forEach(el=>el.classList.add('fire-highlight'))};
+  apply();document.addEventListener('DOMContentLoaded',apply,{once:true});setTimeout(apply,300);setTimeout(apply,1000);
+})();
