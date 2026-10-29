@@ -142,7 +142,45 @@ body{background:radial-gradient(ellipse at 48% 0%,#101522 0%,#080a11 43%,#05060a
 @media(max-width:720px){
   .ambient:before,.ambient:after{width:115vw;height:115vw;filter:blur(64px)!important;opacity:.40!important}
 }
-</style>
+
+/* Premium social handle cards in the footer — with multicolour brand accents and tap-pop */
+.footer .wrap{display:flex;flex-direction:row!important;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.footer-copyright{display:flex;align-items:center;min-height:36px;white-space:nowrap;letter-spacing:.25px}
+.footer-right{display:flex;align-items:center;justify-content:flex-end;gap:14px;margin-left:auto;min-width:0}
+.footer-socials{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.social-link{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:8px 12px;border-radius:14px;border:1px solid rgba(190,207,235,.15);background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 5px rgba(0,0,0,.15),0 3px 0 rgba(0,0,0,.25),0 7px 15px rgba(0,0,0,.15);color:#e5eaf4;text-decoration:none;transition:transform .22s cubic-bezier(.2,.85,.25,1),border-color .22s ease,box-shadow .22s ease,background .22s ease;overflow:hidden;transform:translateY(0);-webkit-tap-highlight-color:transparent}
+.social-link:before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.07),transparent 45%,var(--social-tint,rgba(66,133,244,.08)));opacity:.9}
+.social-link:after{content:"";position:absolute;z-index:0;top:-90%;bottom:-90%;left:-45%;width:24%;pointer-events:none;transform:rotate(22deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transition:left .5s ease}
+.social-icon-wrap{position:relative;z-index:1;display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:9px;border:1px solid var(--social-border,rgba(255,255,255,.15));background:var(--social-bg,rgba(255,255,255,.035));box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 2px 0 rgba(0,0,0,.28),0 4px 8px rgba(0,0,0,.16);transition:transform .22s ease,box-shadow .22s ease}
+.social-icon-wrap svg{width:17px;height:17px;display:block;color:var(--social-color,#fff);filter:drop-shadow(0 1px 1px rgba(0,0,0,.18))}
+.social-handle{position:relative;z-index:1;color:#dfe5ef;font-size:10px;font-weight:800;letter-spacing:.15px;white-space:nowrap}
+.social-youtube{--social-color:#ff7777;--social-tint:rgba(234,67,53,.18);--social-border:rgba(234,67,53,.27);--social-bg:linear-gradient(145deg,rgba(234,67,53,.2),rgba(78,22,28,.4))}
+.social-instagram{--social-color:#ffb0ca;--social-tint:rgba(214,41,118,.17);--social-border:rgba(214,41,118,.28);--social-bg:linear-gradient(145deg,rgba(214,41,118,.16),rgba(73,32,70,.36))}
+.social-x{--social-color:#f1f5ff;--social-tint:rgba(66,133,244,.14);--social-border:rgba(150,177,224,.23);--social-bg:linear-gradient(145deg,rgba(66,133,244,.14),rgba(27,37,57,.4))}
+@media(hover:hover){
+  .social-link:hover{transform:translateY(-3px);border-color:var(--social-border,rgba(255,255,255,.2));box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 3px 0 rgba(0,0,0,.27),0 11px 24px rgba(0,0,0,.24),0 0 18px var(--social-tint,rgba(66,133,244,.08))}
+  .social-link:hover:after{left:135%}
+  .social-link:hover .social-icon-wrap{transform:translateY(-1px) scale(1.07) rotate(-3deg);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 3px 0 rgba(0,0,0,.28),0 6px 12px rgba(0,0,0,.19)}
+}
+.social-link:active{animation:socialTapPop .34s cubic-bezier(.2,1.2,.4,1) both;transform:scale(.96)}
+.social-link:focus-visible{outline:2px solid rgba(159,194,255,.8);outline-offset:3px}
+@keyframes socialTapPop{0%{transform:scale(1)}38%{transform:scale(.92) translateY(1px)}72%{transform:scale(1.045) translateY(-2px)}100%{transform:scale(1)}}
+@media(max-width:720px){
+  .footer .wrap{flex-direction:column!important;align-items:stretch;gap:13px}
+  .footer-copyright{font-size:10px}
+  .footer-right{margin-left:0;justify-content:flex-start;flex-wrap:wrap;gap:9px}
+  .footer-socials{justify-content:flex-start;gap:7px;width:100%;flex-wrap:nowrap}
+  .social-link{flex:1 1 0;min-width:0;min-height:51px;padding:7px 8px;gap:7px;justify-content:center;border-radius:13px}
+  .social-icon-wrap{width:26px;height:26px;border-radius:8px}
+  .social-icon-wrap svg{width:16px;height:16px}
+  .social-handle{font-size:9px;letter-spacing:0}
+}
+@media(max-width:365px){
+  .social-link{flex-direction:column;gap:4px;padding:7px 4px;min-height:61px}
+  .social-handle{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.social-link,.social-icon-wrap{transition:none!important;animation:none!important}.social-link:active{animation:none!important}}
+.footer-contact-link{align-self:center;color:#b3a7a0;text-decoration:none;font-size:10px;white-space:nowrap;transition:color .2s ease,transform .2s ease}.footer-contact-link:hover{color:#f5f8ff;transform:translateY(-1px)}@media(max-width:720px){.footer-contact-link{align-self:flex-start;margin-top:2px}}</style>
 </head>
 <body>
 <div class="ambient" aria-hidden="true"></div>
@@ -170,6 +208,16 @@ body{background:radial-gradient(ellipse at 48% 0%,#101522 0%,#080a11 43%,#05060a
 </div>
 </section>
 </main>
-<footer class="footer"><div class="wrap"><span>© Peradian Resources</span><a href="contact.html">Contact Peradian ↗</a></div></footer>
+<footer class="footer"><div class="wrap"><span class="footer-copyright">© Peradian Resources</span><div class="footer-right"><div class="footer-socials" aria-label="Follow Peradian">
+  <a class="social-link social-youtube" href="https://youtube.com/@peradiann?si=pxlmt0AASo94INdq" target="_blank" rel="noopener noreferrer" aria-label="Peradian on YouTube, @peradiann">
+    <span class="social-icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" rx="4.3" fill="currentColor"/><path d="M10 8.5 16 12l-6 3.5z" fill="#fff"/></svg></span><span class="social-handle">@peradiann</span>
+  </a>
+  <a class="social-link social-instagram" href="https://www.instagram.com/peradiann/" target="_blank" rel="noopener noreferrer" aria-label="Peradian on Instagram, @peradiann">
+    <span class="social-icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="instagramSocialGradient" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".34" stop-color="#FA7E1E"/><stop offset=".62" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5.4" fill="none" stroke="url(#instagramSocialGradient)" stroke-width="2.5"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="url(#instagramSocialGradient)" stroke-width="2.3"/><circle cx="17.7" cy="6.6" r="1.35" fill="#FA7E1E"/></svg></span><span class="social-handle">@peradiann</span>
+  </a>
+  <a class="social-link social-x" href="https://x.com/Peradiann" target="_blank" rel="noopener noreferrer" aria-label="Peradian on X, @Peradiann">
+    <span class="social-icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2.8h3.1l-6.8 7.8 8 10.6H17l-5-6.5-5.7 6.5H3.2l7.3-8.4L2.9 2.8h6.4l4.5 5.9zm-1.1 16.5h1.7L8.2 4.6H6.4z" fill="currentColor"/></svg></span><span class="social-handle">@Peradiann</span>
+  </a>
+</div><a class="footer-contact-link" href="contact.html">Contact Peradian ↗</a></div></div></footer>
 </body>
 </html>
