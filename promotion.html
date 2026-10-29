@@ -190,6 +190,12 @@ body{background:radial-gradient(ellipse at 48% 0%,#101522 0%,#080a11 43%,#05060a
 .footer-socials .social-link:before{background:linear-gradient(125deg,rgba(255,255,255,.08),transparent 50%,var(--social-tint))!important;opacity:1}
 .footer-socials .social-link:active{background:var(--social-bg)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 2px 0 rgba(0,0,0,.3),0 0 18px var(--social-tint)!important}
 
+
+.footer-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-width:680px}
+.footer-note{max-width:640px;margin:0;color:#b5bbc8;font-size:12px;line-height:1.75;text-align:right;text-wrap:pretty}
+.footer-socials{width:100%}
+@media(max-width:720px){.footer-right{align-items:flex-start;width:100%;gap:12px}.footer-note{text-align:left;font-size:12px;line-height:1.7}.footer-socials{justify-content:flex-start;width:100%}}
+
 </style>
 </head>
 <body>
@@ -218,7 +224,8 @@ body{background:radial-gradient(ellipse at 48% 0%,#101522 0%,#080a11 43%,#05060a
 </div>
 </section>
 </main>
-<footer class="footer"><div class="wrap"><span class="footer-copyright">© Peradian Resources</span><div class="footer-right"><div class="footer-socials" aria-label="Follow Peradian">
+<footer class="footer"><div class="wrap"><span class="footer-copyright">© Peradian Resources</span><div class="footer-right"><p class="footer-note">We’re always working to make Peradian better. If you experience a website issue, please accept our apologies and let the Peradian team know so we can improve. Stay connected and follow our social channels below for the latest updates.</p>
+  <div class="footer-socials" aria-label="Follow Peradian">
   <a class="social-link social-youtube" href="https://youtube.com/@peradiann?si=pxlmt0AASo94INdq" target="_blank" rel="noopener noreferrer" aria-label="Peradian on YouTube, @peradiann">
     <span class="social-icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" rx="4.3" fill="currentColor"/><path d="M10 8.5 16 12l-6 3.5z" fill="#fff"/></svg></span><span class="social-handle">@peradiann</span>
   </a>
