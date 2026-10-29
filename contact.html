@@ -197,5 +197,108 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 @media(max-width:360px){
   .nav .back{padding:11px 12px;font-size:11px;min-height:42px}
 }
+
+/* Promotion criteria feature card — 16:9 desktop thumbnail, fluid mobile layout */
+.criteria-preview-wrap{width:min(940px,calc(100% - 40px));margin:0 auto;padding:0 0 42px}
+.criteria-preview{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(220px,.88fr);align-items:center;gap:20px;width:100%;aspect-ratio:16/9;min-height:0;overflow:hidden;padding:clamp(25px,4vw,48px);border-radius:clamp(20px,2.6vw,30px);border:1px solid rgba(219,112,98,.36);color:#f7efeb;text-decoration:none;background:radial-gradient(ellipse at 88% 45%,rgba(115,24,29,.39),transparent 46%),linear-gradient(120deg,rgba(60,20,22,.96),rgba(26,10,13,.97) 55%,rgba(13,7,9,.99));box-shadow:inset 0 1px 0 rgba(255,231,224,.15),inset 0 -1px 0 rgba(0,0,0,.35),0 20px 48px rgba(0,0,0,.29),0 0 30px rgba(125,27,32,.085);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease,filter .3s ease}
+.criteria-preview:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(120deg,rgba(255,225,215,.085),transparent 30%,transparent 68%,rgba(186,54,50,.12)),radial-gradient(ellipse at 0% 0%,rgba(255,255,255,.065),transparent 45%)}
+.criteria-preview:after{content:"";position:absolute;inset:10px;z-index:-1;pointer-events:none;border-radius:inherit;border:1px solid rgba(255,230,223,.045)}
+.criteria-preview-sheen{position:absolute;z-index:2;top:-60%;bottom:-60%;left:-35%;width:18%;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(255,235,228,.09),transparent);pointer-events:none;animation:criteriaPreviewSweep 8s ease-in-out infinite}
+.criteria-preview-copy{position:relative;z-index:3;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.criteria-preview-kicker{display:flex;align-items:center;gap:9px;color:#e9a08c;font-size:9px;font-weight:850;letter-spacing:2px}
+.criteria-preview-live{width:7px;height:7px;flex:none;border-radius:50%;background:#d96b56;box-shadow:0 0 0 4px rgba(217,107,86,.1),0 0 14px rgba(217,107,86,.7);animation:criteriaPreviewPulse 3s ease-in-out infinite}
+.criteria-preview-title{display:block;margin:17px 0 10px;font-size:clamp(24px,3.2vw,39px);line-height:1.08;font-weight:850;letter-spacing:-1.6px;color:#fff5f0}
+.criteria-preview-title em{font-style:normal;color:#e8a08e}
+.criteria-preview-description{max-width:510px;color:#bca9a3;font-size:clamp(11px,1.2vw,13px);line-height:1.75}
+.criteria-preview-points{display:flex;align-items:center;flex-wrap:wrap;gap:9px 14px;margin-top:18px;color:#d9c9c3;font-size:10px;font-weight:650}
+.criteria-preview-points>span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.criteria-mini-check,.criteria-mini-cross{width:19px;height:19px;display:inline-grid;place-items:center;border-radius:7px;font-size:11px;font-weight:950;font-style:normal}
+.criteria-mini-check{color:#d7f4dc;border:1px solid rgba(129,215,151,.28);background:linear-gradient(145deg,rgba(63,147,85,.45),rgba(28,64,39,.8));box-shadow:inset 0 1px 0 rgba(255,255,255,.19),0 2px 0 #142b1a,0 4px 8px rgba(0,0,0,.2)}
+.criteria-mini-cross{color:#ffccc4;border:1px solid rgba(226,122,106,.28);background:linear-gradient(145deg,rgba(142,55,49,.52),rgba(62,20,23,.85));box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 2px 0 #2b0d10,0 4px 8px rgba(0,0,0,.2)}
+.criteria-preview-action{display:inline-flex;align-items:center;gap:12px;margin-top:23px;padding:12px 16px;border-radius:12px;border:1px solid rgba(237,142,121,.47);color:#fff1ec;font-size:11px;font-weight:850;letter-spacing:.15px;background:linear-gradient(150deg,#77312d,#4d191b 48%,#301014);box-shadow:inset 0 1px 0 rgba(255,235,228,.24),inset 0 -2px 0 rgba(20,5,7,.4),0 3px 0 #24090c,0 7px 16px rgba(0,0,0,.23);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.criteria-preview-action>span{color:#e99a85;font-size:15px;transition:transform .25s ease}
+.criteria-preview-art{position:relative;justify-self:stretch;align-self:stretch;min-width:0;min-height:0;display:grid;place-items:center;perspective:700px}
+.criteria-art-orbit{position:absolute;display:block;width:min(78%,270px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(228,132,112,.22);box-shadow:inset 0 0 30px rgba(150,35,39,.07),0 0 30px rgba(139,34,36,.07)}
+.criteria-art-orbit-one{transform:rotateX(61deg) rotateZ(-25deg);animation:criteriaOrbitA 13s linear infinite}
+.criteria-art-orbit-two{width:min(93%,320px);transform:rotateX(63deg) rotateZ(40deg);border-color:rgba(244,171,149,.13);animation:criteriaOrbitB 17s linear infinite}
+.criteria-art-core{position:relative;display:grid;place-items:center;width:clamp(82px,10vw,122px);aspect-ratio:1;border-radius:30%;border:1px solid rgba(238,157,133,.44);color:#f7c6b3;font-family:Georgia,"Times New Roman",serif;font-size:clamp(38px,5.4vw,62px);font-weight:850;background:linear-gradient(145deg,rgba(126,50,45,.91),rgba(50,15,19,.98));box-shadow:inset 0 2px 0 rgba(255,244,237,.2),inset 0 -9px 18px rgba(8,2,4,.45),0 5px 0 #291013,0 13px 24px rgba(0,0,0,.35),0 0 38px rgba(178,52,50,.18);transform:rotateX(7deg) rotateY(-9deg);animation:criteriaCoreFloat 5s ease-in-out infinite}
+.criteria-art-chip{position:absolute;display:inline-flex;align-items:center;gap:7px;padding:9px 11px;border-radius:11px;border:1px solid rgba(255,223,214,.17);background:linear-gradient(140deg,rgba(47,20,22,.94),rgba(18,9,11,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 3px 0 rgba(0,0,0,.35),0 9px 18px rgba(0,0,0,.26);color:#cdb9b2;font-size:8px;font-weight:850;letter-spacing:1.2px;white-space:nowrap}
+.criteria-art-chip b{display:grid;place-items:center;width:20px;height:20px;border-radius:7px;font-size:12px;font-weight:950}
+.criteria-art-chip-yes{top:19%;right:0;animation:criteriaChipFloat 5.5s ease-in-out infinite}
+.criteria-art-chip-yes b{color:#d6f2da;background:linear-gradient(145deg,#396c43,#1d3925);border:1px solid rgba(162,222,170,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 0 #122417}
+.criteria-art-chip-no{bottom:17%;left:0;animation:criteriaChipFloat 6s ease-in-out -2s infinite}
+.criteria-art-chip-no b{color:#ffc8bf;background:linear-gradient(145deg,#793630,#3d1719);border:1px solid rgba(255,164,148,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 0 #260d0f}
+.criteria-art-glint{position:absolute;top:21%;left:14%;color:#f3b09a;font-size:18px;text-shadow:0 0 16px rgba(239,134,110,.55);animation:criteriaGlint 3.8s ease-in-out infinite}
+@keyframes criteriaPreviewSweep{0%,48%{left:-35%;opacity:0}54%{opacity:1}72%,100%{left:130%;opacity:0}}
+@keyframes criteriaPreviewPulse{0%,100%{box-shadow:0 0 0 3px rgba(217,107,86,.08),0 0 9px rgba(217,107,86,.48)}50%{box-shadow:0 0 0 5px rgba(217,107,86,.035),0 0 16px rgba(217,107,86,.8)}}
+@keyframes criteriaOrbitA{from{transform:rotateX(61deg) rotateZ(-25deg)}to{transform:rotateX(61deg) rotateZ(335deg)}}
+@keyframes criteriaOrbitB{from{transform:rotateX(63deg) rotateZ(40deg)}to{transform:rotateX(63deg) rotateZ(-320deg)}}
+@keyframes criteriaCoreFloat{0%,100%{transform:translateY(0) rotateX(7deg) rotateY(-9deg)}50%{transform:translateY(-5px) rotateX(3deg) rotateY(-3deg)}}
+@keyframes criteriaChipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes criteriaGlint{0%,100%{opacity:.55;transform:scale(.9) rotate(0)}50%{opacity:1;transform:scale(1.12) rotate(25deg)}}
+@media(hover:hover){
+  .criteria-preview:hover{transform:translateY(-4px);border-color:rgba(235,133,113,.58);filter:brightness(1.06);box-shadow:inset 0 1px 0 rgba(255,239,231,.2),inset 0 -1px 0 rgba(0,0,0,.35),0 26px 57px rgba(0,0,0,.36),0 0 42px rgba(135,28,34,.15)}
+  .criteria-preview:hover .criteria-preview-action{transform:translateY(-2px);border-color:rgba(255,170,148,.72);box-shadow:inset 0 1px 0 rgba(255,235,228,.27),0 3px 0 #24090c,0 10px 20px rgba(0,0,0,.3)}
+  .criteria-preview:hover .criteria-preview-action>span{transform:translate(3px,-2px)}
+}
+@media(max-width:720px){
+  .criteria-preview-wrap{width:100%;padding:0 16px 32px}
+  .criteria-preview{grid-template-columns:minmax(0,1fr) 94px;gap:7px;padding:22px 16px;aspect-ratio:auto;min-height:0;border-radius:21px}
+  .criteria-preview-title{font-size:clamp(23px,6vw,30px);letter-spacing:-.8px;margin:14px 0 8px}
+  .criteria-preview-kicker{font-size:8px;letter-spacing:1.15px;gap:7px}
+  .criteria-preview-description{font-size:11px;line-height:1.7}
+  .criteria-preview-points{gap:7px 10px;margin-top:13px;font-size:9px}
+  .criteria-preview-points>span:last-child{display:none}
+  .criteria-mini-check,.criteria-mini-cross{width:17px;height:17px}
+  .criteria-preview-action{margin-top:17px;padding:11px 12px;gap:8px;font-size:10px}
+  .criteria-preview-art{min-height:190px;margin-right:-4px}
+  .criteria-art-orbit{width:90px}
+  .criteria-art-orbit-two{width:112px}
+  .criteria-art-core{width:58px;border-radius:18px;font-size:32px}
+  .criteria-art-chip{padding:6px 7px;gap:4px;font-size:7px;letter-spacing:.7px;border-radius:8px}
+  .criteria-art-chip b{width:17px;height:17px;font-size:10px}
+  .criteria-art-chip-yes{top:19%;right:-7px}
+  .criteria-art-chip-no{bottom:15%;left:-8px}
+  .criteria-art-glint{top:18%;left:2%;font-size:14px}
+}
+@media(max-width:390px){
+  .criteria-preview-wrap{padding-right:12px;padding-left:12px}
+  .criteria-preview{grid-template-columns:minmax(0,1fr) 72px;padding:19px 12px;gap:3px}
+  .criteria-preview-title{font-size:23px}
+  .criteria-preview-kicker{font-size:7px;letter-spacing:.8px}
+  .criteria-preview-description{font-size:10px}
+  .criteria-preview-points{gap:6px 8px}
+  .criteria-preview-points>span:nth-child(2){display:none}
+  .criteria-preview-action{padding:10px;font-size:9px}
+  .criteria-preview-art{min-height:168px}
+  .criteria-art-orbit{width:70px}
+  .criteria-art-orbit-two{width:85px}
+  .criteria-art-core{width:49px;font-size:28px;border-radius:15px}
+  .criteria-art-chip{padding:5px}
+  .criteria-art-chip-yes{right:-7px}
+  .criteria-art-chip-no{left:-7px}
+}
+@media(prefers-reduced-motion:reduce){.criteria-preview,.criteria-preview *{animation:none!important;transition:none!important}}
 </style><script src="preloader.js"></script></head><body><div class="bg"></div><div class="fire-bg" aria-hidden="true"></div><header class="nav"><div class="wrap"><a class="brand" href="index.html"><img src="peradian-logo.png" alt="Peradian logo"><span>PERADIAN</span></a><a class="back" href="promotion.html">Promotion policy ↗</a></div></header><main><section class="hero"><div class="wrap"><div class="eyebrow"><span class="dot"></span> Peradian Enquiries</div><h1>Let’s work<br><span style="color:#aaa29d">together.</span></h1><p>Choose an enquiry type and send your message directly to the Peradian team. No external form service and no unnecessary redirect.</p></div></section>
-<section class="wrap grid"><aside class="card info"><div class="icon">✉</div><h2>Contact Peradian</h2><p>For sponsorships, collaborations, media requests, research work, website problems or general enquiries, reach the team directly.</p><a class="email" href="mailto:workperadian@gmail.com">workperadian@gmail.com</a><br><button class="copy" id="copy" type="button">Copy email address</button><p style="margin-top:20px">Your selected enquiry automatically becomes the email subject, keeping the conversation clear from the start.</p></aside><section class="card form"><div class="kicker">Work · Media · Research</div><h2>What can we help with?</h2><p>Select an option, write your message, then tap <b>Open Email</b>. Your device email composer will open with the recipient, subject and message prepared.</p><div class="options"><button class="option active" type="button" data-s="Sponsorship Enquiry"><span class="oi">◈</span>Sponsorship</button><button class="option" type="button" data-s="Brand Collaboration Enquiry"><span class="oi">✦</span>Brand Collaboration</button><button class="option" type="button" data-s="Media / Press Enquiry"><span class="oi">◎</span>Media / Press</button><button class="option" type="button" data-s="Website Problem"><span class="oi">⌘</span>Website Problem</button><button class="option" type="button" data-s="Research Collaboration Enquiry"><span class="oi">⌕</span>Research Collaboration</button><button class="option" type="button" data-s="Work with Peradian Team"><span class="oi">↗</span>Work with Peradian Team</button><button class="option" type="button" data-s="General Enquiry"><span class="oi">•</span>General Enquiry</button></div><form id="form"><div class="field"><label for="name">Your name</label><input id="name" autocomplete="name" required placeholder="Enter your name"></div><div class="field"><label for="sender">Your email</label><input id="sender" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="field"><label for="message">Message</label><textarea id="message" required placeholder="Write your message to the Peradian team..."></textarea></div><button class="send" type="submit">Open Email →</button><div class="note">Your message is not sent to a third-party form service. This simply opens your email application with everything prepared.</div><div class="status" id="status"></div></form></section></section></main><footer class="footer"><div class="wrap"><span>© Peradian Resources</span></div></footer><script>const EMAIL='workperadian@gmail.com';let subject='Sponsorship Enquiry';document.querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.option').forEach(x=>x.classList.remove('active'));b.classList.add('active');subject=b.dataset.s}));document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name').value.trim(),sender=document.getElementById('sender').value.trim(),message=document.getElementById('message').value.trim();const body=`Hello Peradian Team,\n\nName: ${name}\nEmail: ${sender}\n\n${message}\n\nRegards,\n${name}`;window.location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);document.getElementById('status').textContent='Opening your email composer. If it does not open, copy '+EMAIL+' and send the message manually.';document.getElementById('status').classList.add('show')});document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(EMAIL)}catch(e){const t=document.createElement('textarea');t.value=EMAIL;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}document.getElementById('copy').textContent='Email copied ✓';setTimeout(()=>document.getElementById('copy').textContent='Copy email address',1800)});</script></body></html>
+<section class="wrap grid"><aside class="card info"><div class="icon">✉</div><h2>Contact Peradian</h2><p>For sponsorships, collaborations, media requests, research work, website problems or general enquiries, reach the team directly.</p><a class="email" href="mailto:workperadian@gmail.com">workperadian@gmail.com</a><br><button class="copy" id="copy" type="button">Copy email address</button><p style="margin-top:20px">Your selected enquiry automatically becomes the email subject, keeping the conversation clear from the start.</p></aside><section class="card form"><div class="kicker">Work · Media · Research</div><h2>What can we help with?</h2><p>Select an option, write your message, then tap <b>Open Email</b>. Your device email composer will open with the recipient, subject and message prepared.</p><div class="options"><button class="option active" type="button" data-s="Sponsorship Enquiry"><span class="oi">◈</span>Sponsorship</button><button class="option" type="button" data-s="Brand Collaboration Enquiry"><span class="oi">✦</span>Brand Collaboration</button><button class="option" type="button" data-s="Media / Press Enquiry"><span class="oi">◎</span>Media / Press</button><button class="option" type="button" data-s="Website Problem"><span class="oi">⌘</span>Website Problem</button><button class="option" type="button" data-s="Research Collaboration Enquiry"><span class="oi">⌕</span>Research Collaboration</button><button class="option" type="button" data-s="Work with Peradian Team"><span class="oi">↗</span>Work with Peradian Team</button><button class="option" type="button" data-s="General Enquiry"><span class="oi">•</span>General Enquiry</button></div><form id="form"><div class="field"><label for="name">Your name</label><input id="name" autocomplete="name" required placeholder="Enter your name"></div><div class="field"><label for="sender">Your email</label><input id="sender" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="field"><label for="message">Message</label><textarea id="message" required placeholder="Write your message to the Peradian team..."></textarea></div><button class="send" type="submit">Open Email →</button><div class="note">Your message is not sent to a third-party form service. This simply opens your email application with everything prepared.</div><div class="status" id="status"></div></form></section></section>
+<section class="criteria-preview-wrap" aria-label="Promotion policy">
+  <a class="criteria-preview" href="promotion.html">
+    <span class="criteria-preview-sheen" aria-hidden="true"></span>
+    <span class="criteria-preview-copy">
+      <span class="criteria-preview-kicker"><span class="criteria-preview-live"></span> PERADIAN · PARTNERSHIPS</span>
+      <span class="criteria-preview-title">Before you pitch,<br><em>know our standards.</em></span>
+      <span class="criteria-preview-description">We welcome thoughtful, family-friendly partnerships with a positive impact. See what fits Peradian—and what doesn't.</span>
+      <span class="criteria-preview-points"><span><b class="criteria-mini-check">✓</b> Purpose</span><span><b class="criteria-mini-check">✓</b> Fair practice</span><span><b class="criteria-mini-cross">×</b> Clear boundaries</span></span>
+      <span class="criteria-preview-action">Explore promotion criteria <span aria-hidden="true">↗</span></span>
+    </span>
+    <span class="criteria-preview-art" aria-hidden="true">
+      <span class="criteria-art-orbit criteria-art-orbit-one"></span>
+      <span class="criteria-art-orbit criteria-art-orbit-two"></span>
+      <span class="criteria-art-core">P</span>
+      <span class="criteria-art-chip criteria-art-chip-yes"><b>✓</b><span>TRUST</span></span>
+      <span class="criteria-art-chip criteria-art-chip-no"><b>×</b><span>STANDARDS</span></span>
+      <span class="criteria-art-glint">✦</span>
+    </span>
+  </a>
+</section>
+</main><footer class="footer"><div class="wrap"><span>© Peradian Resources</span></div></footer><script>const EMAIL='workperadian@gmail.com';let subject='Sponsorship Enquiry';document.querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.option').forEach(x=>x.classList.remove('active'));b.classList.add('active');subject=b.dataset.s}));document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name').value.trim(),sender=document.getElementById('sender').value.trim(),message=document.getElementById('message').value.trim();const body=`Hello Peradian Team,\n\nName: ${name}\nEmail: ${sender}\n\n${message}\n\nRegards,\n${name}`;window.location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);document.getElementById('status').textContent='Opening your email composer. If it does not open, copy '+EMAIL+' and send the message manually.';document.getElementById('status').classList.add('show')});document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(EMAIL)}catch(e){const t=document.createElement('textarea');t.value=EMAIL;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}document.getElementById('copy').textContent='Email copied ✓';setTimeout(()=>document.getElementById('copy').textContent='Copy email address',1800)});</script></body></html>
