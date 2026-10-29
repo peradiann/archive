@@ -115,6 +115,33 @@ body{background:radial-gradient(ellipse at 48% 0%,#101522 0%,#080a11 43%,#05060a
 @keyframes promotionGlassDriftB{0%{transform:translate3d(1%,0,0) scale(.93)}50%{transform:translate3d(-10%,-8%,0) scale(1.08)}100%{transform:translate3d(-4%,-14%,0) scale(1.02)}}
 @media(max-width:720px){.ambient:before,.ambient:after{width:115vw;height:115vw;filter:blur(85px);opacity:.25}.policy-panel{-webkit-backdrop-filter:blur(24px) saturate(142%)!important;backdrop-filter:blur(24px) saturate(142%)!important}}
 @media(prefers-reduced-motion:reduce){.ambient:before,.ambient:after{animation:none!important}}
+
+/* Visibility + speed tuning: balanced blue, green, yellow and red moving lights */
+.ambient{
+  background:
+    radial-gradient(ellipse at 10% 8%,rgba(66,133,244,.23),transparent 37%),
+    radial-gradient(ellipse at 86% 28%,rgba(52,168,83,.19),transparent 36%),
+    radial-gradient(ellipse at 73% 89%,rgba(234,67,53,.22),transparent 33%),
+    radial-gradient(ellipse at 25% 94%,rgba(251,188,5,.16),transparent 30%)!important;
+}
+.ambient:before,.ambient:after{filter:blur(78px)!important;opacity:.43!important}
+.ambient:before{
+  background:
+    radial-gradient(ellipse at 28% 33%,rgba(66,133,244,.86),transparent 51%),
+    radial-gradient(ellipse at 69% 65%,rgba(52,168,83,.7),transparent 54%),
+    radial-gradient(ellipse at 51% 48%,rgba(52,168,83,.22),transparent 65%)!important;
+  animation:promotionGlassDriftA 8.5s ease-in-out infinite alternate!important;
+}
+.ambient:after{
+  background:
+    radial-gradient(ellipse at 32% 35%,rgba(234,67,53,.8),transparent 52%),
+    radial-gradient(ellipse at 69% 61%,rgba(251,188,5,.68),transparent 53%),
+    radial-gradient(ellipse at 51% 48%,rgba(251,188,5,.2),transparent 65%)!important;
+  animation:promotionGlassDriftB 9.5s ease-in-out infinite alternate!important;
+}
+@media(max-width:720px){
+  .ambient:before,.ambient:after{width:115vw;height:115vw;filter:blur(64px)!important;opacity:.40!important}
+}
 </style>
 </head>
 <body>
