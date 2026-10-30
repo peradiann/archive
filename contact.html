@@ -849,7 +849,7 @@ contactForm.addEventListener('submit',async event=>{
       body:JSON.stringify(payload)
     });
     const result=await response.json();
-    if(!response.ok||result.success!==true)throw new Error(result.message||'Submission could not be confirmed.');
+    if(!response.ok||String(result.success).toLowerCase()!=='true')throw new Error(result.message||'Submission could not be confirmed.');
 
     statusMessage.textContent='✓ Done! Your enquiry has been submitted successfully to the Peradian team.';
     statusMessage.classList.add('show');
