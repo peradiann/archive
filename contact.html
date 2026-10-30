@@ -615,6 +615,8 @@ body:before{opacity:.09!important;background-image:linear-gradient(rgba(66,133,2
 @media(prefers-reduced-motion:reduce){.social-link,.social-link:active,.social-link:active .social-icon-wrap{animation:none!important;transition:none!important}}
 
 /* Category-specific enquiry fields — glass UI */
+.dynamic-fields[hidden]{display:none!important}
+
 .dynamic-fields{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -705,18 +707,18 @@ let subject='Sponsorship Enquiry';
 const categoryFields={
   'Sponsorship Enquiry':[
     {id:'brand-name',label:'Brand / company name',placeholder:'Enter your brand or company name',required:true},
-    {id:'brand-link',label:'Website or social profile',placeholder:'https:// or @username',type:'url'},
+    {id:'brand-link',label:'Website or social profile',placeholder:'https:// or @username',type:'text'},
     {id:'campaign-details',label:'Product or campaign details',placeholder:'What would you like to promote?',wide:true,area:true},
     {id:'campaign-timeline',label:'Expected timeline',placeholder:'e.g. November 2026'}
   ],
   'Brand Collaboration Enquiry':[
     {id:'collab-name',label:'Brand / creator name',placeholder:'Enter the name',required:true},
-    {id:'collab-link',label:'Website or social profile',placeholder:'https:// or @username',type:'url'},
+    {id:'collab-link',label:'Website or social profile',placeholder:'https:// or @username',type:'text'},
     {id:'collab-idea',label:'Collaboration idea',placeholder:'Tell us briefly what you have in mind',wide:true,area:true}
   ],
   'Media / Press Enquiry':[
     {id:'media-organisation',label:'Media organisation',placeholder:'Publication, channel or organisation'},
-    {id:'media-platform',label:'Platform or publication link',placeholder:'Website or social profile',type:'url'},
+    {id:'media-platform',label:'Platform or publication link',placeholder:'Website or social profile',type:'text'},
     {id:'media-request',label:'Type of request',placeholder:'e.g. Interview, quote, press information'},
     {id:'media-deadline',label:'Deadline',placeholder:'Only if time-sensitive'}
   ],
