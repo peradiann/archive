@@ -696,12 +696,11 @@ body:before{opacity:.09!important;background-image:linear-gradient(rgba(66,133,2
     <button class="submission-close" id="submission-close" type="button" aria-label="Close confirmation">×</button>
     <div class="submission-result" id="submission-result" aria-live="polite">
       <div class="result-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5h16v13H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m4.8 6.5 7.2 6 7.2-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m8.5 15 2.1 2.1 5-5" fill="none" stroke="#34A853" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <p class="submission-eyebrow">READY FOR THE PERADIAN TEAM</p>
+      <p class="submission-eyebrow">MESSAGE RECEIVED</p>
       <h2 id="success-heading">Thank you, <span id="success-name">there</span>.</h2>
-      <p class="result-lead">Your enquiry is prepared and ready for the Peradian team.</p>
-      <p class="result-detail">One final step: tap <strong>Open email to send</strong>, then press <strong>Send</strong> in your email app. Once your message reaches us, the team will review it and reply as soon as possible.</p>
-      <div class="result-note"><span class="result-note-icon">i</span><p>We review enquiries weekly, so there’s no need to send the same message twice or follow up immediately.</p></div>
-      <a class="success-action" id="success-open-email" href="mailto:workperadian@gmail.com"><span>Open email to send</span><span aria-hidden="true">↗</span></a>
+      <p class="result-lead">Your enquiry has been submitted to the Peradian team.</p>
+      <p class="result-detail">Your message has been handed to our email delivery service. The team will review your enquiry and reply as soon as possible.</p>
+      <div class="result-note"><span class="result-note-icon">i</span><p>If you do not receive a reply, please check your email for any follow-up from our team.</p></div>
       <button class="success-secondary" id="success-back" type="button">Back to contact form</button>
     </div>
   </section>
@@ -818,22 +817,23 @@ contactForm.addEventListener('submit',async event=>{
   const name=document.getElementById('name').value.trim();
   const sender=document.getElementById('sender').value.trim();
   const message=messageField.value.trim();
-  const payload={
-    name,
-    email:sender,
-    message,
-    _subject:'Peradian — '+subject,
-    _template:'table',
-    _captcha:'true',
-    'Enquiry category':subject
-  };
+  const details={};
 
   dynamicFields.querySelectorAll('input,textarea').forEach(control=>{
     const value=control.value.trim();
     if(!value)return;
     const label=dynamicFields.querySelector('label[for="'+control.id+'"]');
-    if(label)payload[label.childNodes[0].textContent.trim()]=value;
+    if(label)details[label.childNodes[0].textContent.trim()]=value;
   });
+
+  const payload={
+    name,
+    email:sender,
+    message,
+    category:subject,
+    details,
+    website:''
+  };
 
   const buttonContent=sendButton.innerHTML;
   sendButton.disabled=true;
@@ -843,15 +843,15 @@ contactForm.addEventListener('submit',async event=>{
   statusMessage.classList.add('show');
 
   try{
-    const response=await fetch('https://formsubmit.co/ajax/'+EMAIL,{
+    const response=await fetch('https://peradian-contact-api.peradiancontact.workers.dev',{
       method:'POST',
-      headers:{'Content-Type':'application/json',Accept:'application/json'},
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify(payload)
     });
     const result=await response.json();
-    if(!response.ok||String(result.success).toLowerCase()!=='true')throw new Error(result.message||'Submission could not be confirmed.');
+    if(!response.ok||result.success!==true)throw new Error(result.error||'Submission could not be confirmed.');
 
-    statusMessage.textContent='✓ Done! Your enquiry has been submitted successfully to the Peradian team.';
+    statusMessage.textContent='✓ Thank you! Your enquiry has been sent to the Peradian team.';
     statusMessage.classList.add('show');
     contactForm.reset();
     document.querySelectorAll('.option').forEach(item=>{
