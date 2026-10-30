@@ -663,6 +663,33 @@ body:before{opacity:.09!important;background-image:linear-gradient(rgba(66,133,2
 .hero .review-note strong{color:#f2e9e3;font-weight:700}
 @media(max-width:720px){.hero .review-note{max-width:94%;font-size:11.5px;line-height:1.75;margin-top:12px}}
 
+
+/* Mobile containment: keep preview text and animated artwork inside the card */
+@media(max-width:720px){
+  .criteria-preview-wrap{width:100%;max-width:100%;padding-left:12px;padding-right:12px;box-sizing:border-box}
+  .criteria-preview,
+  .criteria-preview *{box-sizing:border-box}
+  .criteria-preview{width:100%;max-width:100%;grid-template-columns:minmax(0,1fr) minmax(0,82px);gap:8px;padding:18px 13px;overflow:hidden}
+  .criteria-preview-copy{width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
+  .criteria-preview-kicker{max-width:100%;flex-wrap:wrap;letter-spacing:.7px}
+  .criteria-preview-title,.criteria-preview-description{max-width:100%;overflow-wrap:anywhere;word-break:normal}
+  .criteria-preview-points{width:100%;max-width:100%;align-items:flex-start}
+  .criteria-preview-points>span{max-width:100%;white-space:normal}
+  .criteria-preview-art{width:100%;max-width:100%;min-width:0;overflow:hidden;margin:0;clip-path:inset(0 round 12px)}
+  .criteria-art-orbit,.criteria-art-orbit-two{max-width:100%;left:50%;transform:translateX(-50%) rotateX(61deg) rotateZ(-25deg)}
+  .criteria-art-chip{max-width:calc(100% - 4px);white-space:normal;overflow-wrap:anywhere;letter-spacing:.2px}
+  .criteria-art-chip-yes{right:2px;left:auto}
+  .criteria-art-chip-no{left:2px;right:auto}
+  .criteria-art-glint{left:4px}
+  .criteria-preview-sheen{max-width:100%;overflow:hidden}
+}
+@media(max-width:390px){
+  .criteria-preview{grid-template-columns:minmax(0,1fr) minmax(0,68px);gap:5px;padding:16px 11px}
+  .criteria-preview-art{min-height:150px}
+  .criteria-art-chip{font-size:6px;padding:4px;gap:3px}
+  .criteria-art-chip b{width:15px;height:15px;flex:none}
+}
+
 /* Mobile promotion preview: keep all three policy points visible */
 @media(max-width:720px){
   .criteria-preview-points{
