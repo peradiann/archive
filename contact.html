@@ -827,7 +827,7 @@ contactForm.addEventListener('submit',event=>{
   });
 
   const detailsText=Object.keys(details).length
-    ?Object.entries(details).map(([label,value])=>label+': '+value).join('\\n')
+    ?Object.entries(details).map(([label,value])=>label+': '+value).join('\r\n')
     :'None';
 
   const emailSubject='Peradian Contact: '+subject;
@@ -841,7 +841,7 @@ contactForm.addEventListener('submit',event=>{
     '',
     'Message:',
     message
-  ].join('\\n');
+  ].join('\r\n');
 
   statusMessage.textContent='Opening your email app with your enquiry…';
   statusMessage.classList.add('show');
