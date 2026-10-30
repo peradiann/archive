@@ -824,8 +824,13 @@ contactForm.addEventListener('submit',event=>{
     if(!value)return;
     const label=dynamicFields.querySelector('label[for="'+control.id+'"]');
     const fieldName=label?label.childNodes[0].textContent.trim():'';
-    if(fieldName==='Website or social profile' && /^www\./i.test(value)) value='https://'+value;
-    if(fieldName==='Website or social profile' && /^(?!https?:\/\/|mailto:|@)[a-z0-9-]+\.[a-z]{2,}/i.test(value)) value='https://'+value;
+    if(fieldName==='Website or social profile'){
+      const markdownLink=value.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/i);
+      if(markdownLink) value=markdownLink[2];
+      value=value.replace(/^<(.+)>$/,'$1').trim();
+      if(/^www\./i.test(value)) value='https://'+value;
+      else if(/^(?!https?:\/\/|mailto:|@)[a-z0-9-]+\.[a-z]{2,}/i.test(value)) value='https://'+value;
+    }
     if(label)details[fieldName]=value;
   });
 
