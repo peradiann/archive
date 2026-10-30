@@ -820,10 +820,13 @@ contactForm.addEventListener('submit',event=>{
   const details={};
 
   dynamicFields.querySelectorAll('input,textarea').forEach(control=>{
-    const value=control.value.trim();
+    let value=control.value.trim();
     if(!value)return;
     const label=dynamicFields.querySelector('label[for="'+control.id+'"]');
-    if(label)details[label.childNodes[0].textContent.trim()]=value;
+    const fieldName=label?label.childNodes[0].textContent.trim():'';
+    if(fieldName==='Website or social profile' && /^www\./i.test(value)) value='https://'+value;
+    if(fieldName==='Website or social profile' && /^(?!https?:\/\/|mailto:|@)[a-z0-9-]+\.[a-z]{2,}/i.test(value)) value='https://'+value;
+    if(label)details[fieldName]=value;
   });
 
   const detailsText=Object.keys(details).length
