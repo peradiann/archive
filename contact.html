@@ -613,8 +613,45 @@ body:before{opacity:.09!important;background-image:linear-gradient(rgba(66,133,2
 @keyframes socialTapPremium{0%{transform:scale(1);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 3px 0 rgba(0,0,0,.25),0 7px 15px rgba(0,0,0,.15)}35%{transform:scale(.955) translateY(2px);box-shadow:inset 0 3px 7px rgba(0,0,0,.28),0 1px 0 rgba(0,0,0,.25),0 0 0 3px var(--social-ring,rgba(255,255,255,.06))}72%{transform:scale(1.035) translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 0 rgba(0,0,0,.25),0 0 20px var(--social-tint,rgba(255,255,255,.06))}100%{transform:scale(1);}}
 @keyframes socialIconPremium{0%,100%{transform:scale(1) rotate(0)}38%{transform:scale(.86) rotate(-5deg)}72%{transform:scale(1.12) rotate(3deg)}}
 @media(prefers-reduced-motion:reduce){.social-link,.social-link:active,.social-link:active .social-icon-wrap{animation:none!important;transition:none!important}}
+
+/* Category-specific enquiry fields — glass UI */
+.dynamic-fields{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 13px;
+  margin:3px 0 5px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,255,255,.065),rgba(255,255,255,.018) 55%,rgba(255,94,49,.035));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 12px 30px rgba(0,0,0,.13);
+  -webkit-backdrop-filter:blur(18px) saturate(135%);
+  backdrop-filter:blur(18px) saturate(135%);
+}
+.dynamic-heading{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 4px}
+.dynamic-heading strong{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#f0c0ad}
+.dynamic-heading span{font-size:9px;color:#918984}
+.dynamic-fields .field{min-width:0;margin-top:10px}
+.dynamic-fields .field.full{grid-column:1/-1}
+.field label .optional-tag{margin-left:5px;color:#8f8985;font-size:9px;font-weight:500}
+.field label .required-tag{margin-left:5px;color:#ff9c75;font-size:9px;font-weight:600}
+.field input,.field textarea{
+  border-color:rgba(255,255,255,.13);
+  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 5px 16px rgba(0,0,0,.1);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+.field input::placeholder,.field textarea::placeholder{color:#817b78}
+.option{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.018))!important;border-color:rgba(255,255,255,.12)}
+.option.active{background:linear-gradient(135deg,rgba(255,104,64,.16),rgba(255,255,255,.035))!important;border-color:rgba(255,139,99,.54)}
+@media(max-width:720px){
+  .dynamic-fields{grid-template-columns:minmax(0,1fr);padding:12px}
+  .dynamic-fields .field.full{grid-column:auto}
+}
+
 </style><script src="preloader.js"></script></head><body><div class="bg"></div><div class="fire-bg" aria-hidden="true"></div><header class="nav"><div class="wrap"><a class="brand" href="index.html"><img src="peradian-logo.png" alt="Peradian logo"><span>PERADIAN</span></a><a class="back" href="promotion.html">Promotion policy ↗</a></div></header><main><section class="hero"><div class="wrap"><div class="eyebrow"><span class="dot"></span> Peradian Enquiries</div><h1>Let’s work<br><span style="color:#aaa29d">together.</span></h1><p>Choose an enquiry type and send your message directly to the Peradian team. No external form service and no unnecessary redirect.</p></div></section>
-<section class="wrap grid"><aside class="card info"><div class="icon contact-icon" aria-hidden="true"><svg class="contact-envelope-icon" viewBox="0 0 32 32" role="img"><defs><linearGradient id="contactGoogleGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4285F4"/><stop offset=".34" stop-color="#34A853"/><stop offset=".67" stop-color="#FBBC05"/><stop offset="1" stop-color="#EA4335"/></linearGradient><linearGradient id="contactEnvelopeGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".96"/><stop offset="1" stop-color="#C8D9FA" stop-opacity=".88"/></linearGradient></defs><rect x="3.5" y="6.5" width="25" height="19" rx="4.4" fill="url(#contactGoogleGradient)" fill-opacity=".2" stroke="url(#contactGoogleGradient)" stroke-width="1.45"/><path d="m5.4 9 10.6 8.2L26.6 9" fill="none" stroke="url(#contactEnvelopeGlass)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m5.8 23 7-6M26.2 23l-7-6" fill="none" stroke="url(#contactGoogleGradient)" stroke-width="1.7" stroke-linecap="round"/><path d="M3.8 10.4 13.6 18a4 4 0 0 0 4.8 0l9.8-7.6" fill="none" stroke="rgba(255,255,255,.68)" stroke-width=".65"/></svg></div><h2>Contact Peradian</h2><p>For sponsorships, collaborations, media requests, research work, website problems or general enquiries, reach the team directly.</p><a class="email" href="mailto:workperadian@gmail.com">workperadian@gmail.com</a><br><button class="copy" id="copy" type="button">Copy email address</button><p style="margin-top:20px">Your selected enquiry automatically becomes the email subject, keeping the conversation clear from the start.</p></aside><section class="card form"><div class="kicker">Work · Media · Research</div><h2>What can we help with?</h2><p>Select an option, write your message, then tap <b>Open Email</b>. Your device email composer will open with the recipient, subject and message prepared.</p><div class="options"><button class="option active" type="button" data-s="Sponsorship Enquiry"><span class="oi oi-sponsor" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.2" r="4.4"/><path d="M8.8 12 7 21l5-2.8 5 2.8-1.8-9"/><path d="m10.2 8.3 1.2 1.2 2.5-2.6"/></svg></span>Sponsorship</button><button class="option" type="button" data-s="Brand Collaboration Enquiry"><span class="oi oi-brand" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><path d="m9.2 14.8 5.6-5.6"/><path d="m7.1 12.7-2-2a3.4 3.4 0 0 1 4.8-4.8l1.6 1.6"/><path d="m16.9 11.3 2 2a3.4 3.4 0 0 1-4.8 4.8l-1.6-1.6"/><path d="M4 19.8 6.4 17.4"/><path d="m17.6 6.6 2.4-2.4"/></svg></span>Brand Collaboration</button><button class="option" type="button" data-s="Media / Press Enquiry"><span class="oi oi-media" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><rect x="8.2" y="3" width="7.6" height="12" rx="3.8"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7"/><path d="M10.5 6.5h3"/></svg></span>Media / Press</button><button class="option" type="button" data-s="Website Problem"><span class="oi oi-website" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M3.5 8h17"/><path d="M12 10v3"/><circle cx="12" cy="15" r=".6" fill="currentColor" stroke="none"/></svg></span>Website Problem</button><button class="option" type="button" data-s="Research Collaboration Enquiry"><span class="oi oi-research" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 5 5"/><path d="M10.5 7.5v6M7.5 10.5h6"/></svg></span>Research Collaboration</button><button class="option" type="button" data-s="Work with Peradian Team"><span class="oi oi-team" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.1"/><path d="M3.5 19v-1.3A4.7 4.7 0 0 1 8.2 13h1.6a4.7 4.7 0 0 1 4.7 4.7V19z"/><path d="M15.5 5.2a3.1 3.1 0 0 1 0 5.9M16 13h.7a3.8 3.8 0 0 1 3.8 3.8V19h-3.1"/></svg></span>Work with Peradian Team</button><button class="option" type="button" data-s="General Enquiry"><span class="oi oi-general" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><path d="M20 11.5a7.6 7.6 0 0 1-8 7.5 8.8 8.8 0 0 1-3.4-.7L4 20l1.3-4.1A7.2 7.2 0 0 1 4 11.5 7.6 7.6 0 0 1 12 4a7.6 7.6 0 0 1 8 7.5z"/><path d="M8.5 11.5h.1M12 11.5h.1M15.5 11.5h.1" stroke-width="2.4" stroke-linecap="round"/></svg></span>General Enquiry</button></div><form id="form"><div class="field"><label for="name">Your name</label><input id="name" autocomplete="name" required placeholder="Enter your name"></div><div class="field"><label for="sender">Your email</label><input id="sender" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="field"><label for="message">Message</label><textarea id="message" required placeholder="Write your message to the Peradian team..."></textarea></div><button class="send" type="submit" aria-label="Send enquiry"><span class="send-content"><svg class="send-icon" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="sendSilverGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="38%" stop-color="#F0F4FF"/><stop offset="72%" stop-color="#D7E3F8"/><stop offset="100%" stop-color="#B5CCF2"/></linearGradient></defs><path d="M2.6 3.2 22 12 2.6 20.8l.2-6.5L15 12 2.8 9.7z" fill="url(#sendSilverGradient)" stroke="rgba(255,255,255,.94)" stroke-width=".55" stroke-linejoin="round"/></svg><span>SEND</span></span></button><div class="note">Your message is not sent to a third-party form service. This simply opens your email application with everything prepared.</div><div class="status" id="status"></div></form></section></section>
+<section class="wrap grid"><aside class="card info"><div class="icon contact-icon" aria-hidden="true"><svg class="contact-envelope-icon" viewBox="0 0 32 32" role="img"><defs><linearGradient id="contactGoogleGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4285F4"/><stop offset=".34" stop-color="#34A853"/><stop offset=".67" stop-color="#FBBC05"/><stop offset="1" stop-color="#EA4335"/></linearGradient><linearGradient id="contactEnvelopeGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".96"/><stop offset="1" stop-color="#C8D9FA" stop-opacity=".88"/></linearGradient></defs><rect x="3.5" y="6.5" width="25" height="19" rx="4.4" fill="url(#contactGoogleGradient)" fill-opacity=".2" stroke="url(#contactGoogleGradient)" stroke-width="1.45"/><path d="m5.4 9 10.6 8.2L26.6 9" fill="none" stroke="url(#contactEnvelopeGlass)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m5.8 23 7-6M26.2 23l-7-6" fill="none" stroke="url(#contactGoogleGradient)" stroke-width="1.7" stroke-linecap="round"/><path d="M3.8 10.4 13.6 18a4 4 0 0 0 4.8 0l9.8-7.6" fill="none" stroke="rgba(255,255,255,.68)" stroke-width=".65"/></svg></div><h2>Contact Peradian</h2><p>For sponsorships, collaborations, media requests, research work, website problems or general enquiries, reach the team directly.</p><a class="email" href="mailto:workperadian@gmail.com">workperadian@gmail.com</a><br><button class="copy" id="copy" type="button">Copy email address</button><p style="margin-top:20px">Your selected enquiry automatically becomes the email subject, keeping the conversation clear from the start.</p></aside><section class="card form"><div class="kicker">Work · Media · Research</div><h2>What can we help with?</h2><p>Select an option, write your message, then tap <b>Open Email</b>. Your device email composer will open with the recipient, subject and message prepared.</p><div class="options"><button class="option active" type="button" data-s="Sponsorship Enquiry"><span class="oi oi-sponsor" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.2" r="4.4"/><path d="M8.8 12 7 21l5-2.8 5 2.8-1.8-9"/><path d="m10.2 8.3 1.2 1.2 2.5-2.6"/></svg></span>Sponsorship</button><button class="option" type="button" data-s="Brand Collaboration Enquiry"><span class="oi oi-brand" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><path d="m9.2 14.8 5.6-5.6"/><path d="m7.1 12.7-2-2a3.4 3.4 0 0 1 4.8-4.8l1.6 1.6"/><path d="m16.9 11.3 2 2a3.4 3.4 0 0 1-4.8 4.8l-1.6-1.6"/><path d="M4 19.8 6.4 17.4"/><path d="m17.6 6.6 2.4-2.4"/></svg></span>Brand Collaboration</button><button class="option" type="button" data-s="Media / Press Enquiry"><span class="oi oi-media" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><rect x="8.2" y="3" width="7.6" height="12" rx="3.8"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7"/><path d="M10.5 6.5h3"/></svg></span>Media / Press</button><button class="option" type="button" data-s="Website Problem"><span class="oi oi-website" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M3.5 8h17"/><path d="M12 10v3"/><circle cx="12" cy="15" r=".6" fill="currentColor" stroke="none"/></svg></span>Website Problem</button><button class="option" type="button" data-s="Research Collaboration Enquiry"><span class="oi oi-research" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 5 5"/><path d="M10.5 7.5v6M7.5 10.5h6"/></svg></span>Research Collaboration</button><button class="option" type="button" data-s="Work with Peradian Team"><span class="oi oi-team" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.1"/><path d="M3.5 19v-1.3A4.7 4.7 0 0 1 8.2 13h1.6a4.7 4.7 0 0 1 4.7 4.7V19z"/><path d="M15.5 5.2a3.1 3.1 0 0 1 0 5.9M16 13h.7a3.8 3.8 0 0 1 3.8 3.8V19h-3.1"/></svg></span>Work with Peradian Team</button><button class="option" type="button" data-s="General Enquiry"><span class="oi oi-general" aria-hidden="true"><svg class="category-icon" viewBox="0 0 24 24" fill="none"><path d="M20 11.5a7.6 7.6 0 0 1-8 7.5 8.8 8.8 0 0 1-3.4-.7L4 20l1.3-4.1A7.2 7.2 0 0 1 4 11.5 7.6 7.6 0 0 1 12 4a7.6 7.6 0 0 1 8 7.5z"/><path d="M8.5 11.5h.1M12 11.5h.1M15.5 11.5h.1" stroke-width="2.4" stroke-linecap="round"/></svg></span>General Enquiry</button></div><form id="form"><div class="field"><label for="name">Your name</label><input id="name" autocomplete="name" required placeholder="Enter your name"></div><div class="field"><label for="sender">Your email</label><input id="sender" type="email" autocomplete="email" required placeholder="you@example.com"></div><div id="dynamic-fields" class="dynamic-fields" aria-live="polite"></div><div class="field"><label for="message">Message</label><textarea id="message" required placeholder="Write your message to the Peradian team..."></textarea></div><button class="send" type="submit" aria-label="Send enquiry"><span class="send-content"><svg class="send-icon" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="sendSilverGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="38%" stop-color="#F0F4FF"/><stop offset="72%" stop-color="#D7E3F8"/><stop offset="100%" stop-color="#B5CCF2"/></linearGradient></defs><path d="M2.6 3.2 22 12 2.6 20.8l.2-6.5L15 12 2.8 9.7z" fill="url(#sendSilverGradient)" stroke="rgba(255,255,255,.94)" stroke-width=".55" stroke-linejoin="round"/></svg><span>SEND</span></span></button><div class="note">Your message is not sent to a third-party form service. This simply opens your email application with everything prepared.</div><div class="status" id="status"></div></form></section></section>
 <section class="criteria-preview-wrap" aria-label="Promotion policy">
   <a class="criteria-preview" href="promotion.html">
     <span class="criteria-preview-sheen" aria-hidden="true"></span>
@@ -661,4 +698,152 @@ body:before{opacity:.09!important;background-image:linear-gradient(rgba(66,133,2
       <button class="success-secondary" id="success-back" type="button">Back to contact form</button>
     </div>
   </section>
-</div><script>const EMAIL='workperadian@gmail.com';let subject='Sponsorship Enquiry';document.querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.option').forEach(x=>x.classList.remove('active'));b.classList.add('active');subject=b.dataset.s}));const messageField=document.getElementById('message');const sendButton=document.querySelector('.send');messageField.addEventListener('input',()=>{if(!messageField.value.trim()){sendButton.classList.remove('is-typing');return}sendButton.classList.remove('is-typing');void sendButton.offsetWidth;sendButton.classList.add('is-typing')});const submissionOverlay=document.getElementById('submission-overlay');const successLink=document.getElementById('success-open-email');function closeSubmission(){submissionOverlay.classList.remove('show');submissionOverlay.setAttribute('aria-hidden','true');document.body.classList.remove('submission-active')}document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name').value.trim(),sender=document.getElementById('sender').value.trim(),message=messageField.value.trim();const body=`Hello Peradian Team,\n\nName: ${name}\nEmail: ${sender}\n\n${message}\n\nRegards,\n${name}`;const mailtoUrl='mailto:'+EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);document.getElementById('success-name').textContent=name||'there';successLink.href=mailtoUrl;submissionOverlay.classList.add('show');submissionOverlay.setAttribute('aria-hidden','false');document.body.classList.add('submission-active')});successLink.addEventListener('click',()=>{closeSubmission()});document.getElementById('submission-close').addEventListener('click',closeSubmission);document.getElementById('success-back').addEventListener('click',closeSubmission);document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(EMAIL)}catch(e){const t=document.createElement('textarea');t.value=EMAIL;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}document.getElementById('copy').textContent='Email copied ✓';setTimeout(()=>document.getElementById('copy').textContent='Copy email address',1800)});</script></body></html>
+</div><script>
+const EMAIL='workperadian@gmail.com';
+let subject='Sponsorship Enquiry';
+
+const categoryFields={
+  'Sponsorship Enquiry':[
+    {id:'brand-name',label:'Brand / company name',placeholder:'Enter your brand or company name',required:true},
+    {id:'brand-link',label:'Website or social profile',placeholder:'https:// or @username',type:'url'},
+    {id:'campaign-details',label:'Product or campaign details',placeholder:'What would you like to promote?',wide:true,area:true},
+    {id:'campaign-timeline',label:'Expected timeline',placeholder:'e.g. November 2026'}
+  ],
+  'Brand Collaboration Enquiry':[
+    {id:'collab-name',label:'Brand / creator name',placeholder:'Enter the name',required:true},
+    {id:'collab-link',label:'Website or social profile',placeholder:'https:// or @username',type:'url'},
+    {id:'collab-idea',label:'Collaboration idea',placeholder:'Tell us briefly what you have in mind',wide:true,area:true}
+  ],
+  'Media / Press Enquiry':[
+    {id:'media-organisation',label:'Media organisation',placeholder:'Publication, channel or organisation'},
+    {id:'media-platform',label:'Platform or publication link',placeholder:'Website or social profile',type:'url'},
+    {id:'media-request',label:'Type of request',placeholder:'e.g. Interview, quote, press information'},
+    {id:'media-deadline',label:'Deadline',placeholder:'Only if time-sensitive'}
+  ],
+  'Website Problem':[
+    {id:'problem-url',label:'Affected page URL',placeholder:'Paste the page link',type:'url'},
+    {id:'problem-device',label:'Device and browser',placeholder:'e.g. Android · Chrome'},
+    {id:'problem-type',label:'Issue type',placeholder:'e.g. Layout, link, loading, other'}
+  ],
+  'Research Collaboration Enquiry':[
+    {id:'research-topic',label:'Research topic',placeholder:'What topic would you like to research?',required:true,wide:true},
+    {id:'research-purpose',label:'Purpose of the research',placeholder:'What are you hoping to understand or produce?',wide:true,area:true},
+    {id:'research-support',label:'Collaboration or support needed',placeholder:'Share the kind of support you have in mind',wide:true},
+    {id:'research-timeline',label:'Target timeline',placeholder:'Optional date or timeframe'}
+  ],
+  'Work with Peradian Team':[
+    {id:'work-role',label:'Role or area of interest',placeholder:'e.g. Research, writing, design, community',required:true},
+    {id:'work-portfolio',label:'Portfolio or work samples',placeholder:'Website, Drive link or social profile',type:'url'},
+    {id:'work-intro',label:'Brief introduction',placeholder:'Share relevant experience or skills',wide:true,area:true}
+  ],
+  'General Enquiry':[]
+};
+
+const dynamicFields=document.getElementById('dynamic-fields');
+function renderCategoryFields(category){
+  dynamicFields.replaceChildren();
+  const fields=categoryFields[category]||[];
+  if(!fields.length){dynamicFields.hidden=true;return}
+  dynamicFields.hidden=false;
+  const heading=document.createElement('div');
+  heading.className='dynamic-heading';
+  const title=document.createElement('strong');
+  title.textContent='Additional details';
+  const hint=document.createElement('span');
+  hint.textContent='Fields marked Optional can be skipped';
+  heading.append(title,hint);
+  dynamicFields.appendChild(heading);
+
+  fields.forEach(field=>{
+    const wrapper=document.createElement('div');
+    wrapper.className='field'+(field.wide?' full':'');
+    const label=document.createElement('label');
+    label.htmlFor=field.id;
+    label.append(document.createTextNode(field.label));
+    const tag=document.createElement('span');
+    tag.className=field.required?'required-tag':'optional-tag';
+    tag.textContent=field.required?'Required':'Optional';
+    label.appendChild(tag);
+
+    const control=document.createElement(field.area?'textarea':'input');
+    control.id=field.id;
+    control.name=field.id;
+    control.placeholder=field.placeholder;
+    control.required=Boolean(field.required);
+    if(!field.area)control.type=field.type||'text';
+    if(field.area)control.rows=3;
+    control.autocomplete='off';
+    wrapper.append(label,control);
+    dynamicFields.appendChild(wrapper);
+  });
+}
+
+document.querySelectorAll('.option').forEach(button=>{
+  button.setAttribute('aria-pressed',button.classList.contains('active')?'true':'false');
+  button.addEventListener('click',()=>{
+    document.querySelectorAll('.option').forEach(item=>{
+      item.classList.remove('active');
+      item.setAttribute('aria-pressed','false');
+    });
+    button.classList.add('active');
+    button.setAttribute('aria-pressed','true');
+    subject=button.dataset.s;
+    renderCategoryFields(subject);
+  });
+});
+renderCategoryFields(subject);
+
+const messageField=document.getElementById('message');
+const sendButton=document.querySelector('.send');
+messageField.addEventListener('input',()=>{
+  if(!messageField.value.trim()){sendButton.classList.remove('is-typing');return}
+  sendButton.classList.remove('is-typing');
+  void sendButton.offsetWidth;
+  sendButton.classList.add('is-typing');
+});
+
+const submissionOverlay=document.getElementById('submission-overlay');
+const successLink=document.getElementById('success-open-email');
+function closeSubmission(){
+  submissionOverlay.classList.remove('show');
+  submissionOverlay.setAttribute('aria-hidden','true');
+  document.body.classList.remove('submission-active');
+}
+document.getElementById('form').addEventListener('submit',event=>{
+  event.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  const sender=document.getElementById('sender').value.trim();
+  const message=messageField.value.trim();
+  const additionalDetails=[];
+  dynamicFields.querySelectorAll('input,textarea').forEach(control=>{
+    const value=control.value.trim();
+    if(!value)return;
+    const label=dynamicFields.querySelector('label[for="'+control.id+'"]');
+    if(label)additionalDetails.push(label.childNodes[0].textContent.trim()+': '+value);
+  });
+  const details=additionalDetails.length?'\n\nAdditional details:\n'+additionalDetails.join('\n'):'';
+  const body='Hello Peradian Team,\n\nName: '+name+'\nEmail: '+sender+'\nEnquiry type: '+subject+details+'\n\nMessage:\n'+message+'\n\nRegards,\n'+name;
+  const mailtoUrl='mailto:'+EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  document.getElementById('success-name').textContent=name||'there';
+  successLink.href=mailtoUrl;
+  submissionOverlay.classList.add('show');
+  submissionOverlay.setAttribute('aria-hidden','false');
+  document.body.classList.add('submission-active');
+});
+successLink.addEventListener('click',closeSubmission);
+document.getElementById('submission-close').addEventListener('click',closeSubmission);
+document.getElementById('success-back').addEventListener('click',closeSubmission);
+document.getElementById('copy').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(EMAIL)}
+  catch(error){
+    const temporary=document.createElement('textarea');
+    temporary.value=EMAIL;
+    document.body.appendChild(temporary);
+    temporary.select();
+    document.execCommand('copy');
+    temporary.remove();
+  }
+  document.getElementById('copy').textContent='Email copied ✓';
+  setTimeout(()=>document.getElementById('copy').textContent='Copy email address',1800);
+});
+</script></body></html>
