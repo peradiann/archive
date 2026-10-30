@@ -826,8 +826,22 @@ contactForm.addEventListener('submit',event=>{
     if(label)details[label.childNodes[0].textContent.trim()]=value;
   });
 
+  const detailsText=Object.keys(details).length
+    ?Object.entries(details).map(([label,value])=>label+': '+value).join('\\n')
+    :'None';
+
   const emailSubject='Peradian Contact: '+subject;
-  const emailBody=message;
+  const emailBody=[
+    'Name: '+name,
+    'Email: '+sender,
+    'Category: '+subject,
+    '',
+    'Additional Details:',
+    detailsText,
+    '',
+    'Message:',
+    message
+  ].join('\\n');
 
   statusMessage.textContent='Opening your email app with your enquiry…';
   statusMessage.classList.add('show');
